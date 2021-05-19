@@ -1,5 +1,13 @@
-# Getting Started with Create React App
+## Get started
+1. Run `npm install --global yarn` 
+2. Fork this repo to your Github account
+3. Clone repo in your account to local machine
+4. Run `yarn` in the project directory
+5. Run `yarn start`
+   
 
+Please develop the website follow the style guide and prototype provided.
+---------------------------------------------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
