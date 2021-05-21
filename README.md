@@ -4,6 +4,7 @@
 3. Clone repo in your account to local machine
 4. Run `yarn` in the project directory
 5. Run `yarn start`
+6. Let's do some work together
    
 
 Please develop the website follow the style guide and prototype provided.
