@@ -1,5 +1,14 @@
-
 @import '~antd/dist/antd.css';
-@import './components/ItemList/ItemList.style.css'
+@import '~antd/dist/antd.css';
+@import './components/ItemList/ItemList.style.css';
+@import './components/Header/TopNavBar.css';
+@import './components/Header/SubNavBar.css';
+@import './components/Home/HomeFlaunt.css';
+@import './components/Home/CarouselSlides.css';
+@import './components/Home/Homelayout.css';
+
+
+
+
 
 
