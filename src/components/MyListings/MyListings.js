@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, List, Row, Space, message } from "antd";
+import { Layout, List, Space, message } from "antd";
 import axios from "axios";
 
 import { BASE_URL, TOKEN_KEY } from "../../constants/constants";
@@ -69,6 +69,12 @@ const MyListings = () => {
         <Header>Header</Header>
         <Content className="my-listings-content">
           <List
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
             itemLayout="vertical"
             size="large"
             pagination={{
@@ -85,6 +91,7 @@ const MyListings = () => {
             }
             renderItem={(item) => (
               <List.Item
+                className="list-item"
                 key={item.listing_id}
                 actions={[
                   <ListingInfo
