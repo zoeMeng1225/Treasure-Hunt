@@ -5,6 +5,8 @@ import HomePage from "./components/Home/Home";
 import ItemList from "./components/ItemList/ItemList";
 import MyListings from "./components/MyListings/MyListings";
 import SavedListings from "./components/SavedListings/SavedListings";
+import ListingDetail from "./components/ListingDetail/ListingDetail";
+
 import "./App.css";
 
 // this component should be a root router file
@@ -17,6 +19,7 @@ function App() {
         <Route path="/items" component={ItemList} />
         <Route path="/my-listings" component={MyListings} />
         <Route path="/saved-listings" component={SavedListings} />
+        <Route path="/listing-detail" component={ListingDetail} />
       </Switch>
     </BrowserRouter>
   );
