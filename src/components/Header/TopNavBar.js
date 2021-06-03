@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 
-import {Layout, Menu, Button, Avatar, Col, Row, Input, Space, Divider, Card} from "antd";
+import {Layout, Col, Row, Input} from "antd";
 
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 
-const { Header, Content, Footer } = Layout;
-const { Search } = Input;
+const { Header } = Layout;
 
+const { Search } = Input;
 const onSearch = value => console.log(value);
 
 class TopNavBar extends Component {

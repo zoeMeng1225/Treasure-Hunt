@@ -1,9 +1,10 @@
 import React, {Component} from "react";
+import {NavLink} from "react-router-dom";
 
-import {Button, Card, Col, List, Row} from "antd";
+import {Button, Card, Col, Row} from "antd";
 
 import homepage2 from "../../assets/images/homepage2.jpg";
-import {NavLink} from 'react-router-dom'
+
 
 
 const carouselButtonStyle={

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import {NavLink} from "react-router-dom";
 
-import {Menu, Space, Input} from "antd";
+import {Menu} from "antd";
 
 import logo from "../../assets/images/logo.png";
-import {NavLink} from 'react-router-dom'
+
 
 const onSearch = value => console.log(value);
 
@@ -25,7 +26,7 @@ class LeftMenu extends Component {
                 </Menu.Item>
 
                 <Menu.Item key="/sell">
-                    <a href="">Sell</a>
+                    <NavLink  to="/sell" activeClassName="Sell-active-class" className="link">Sell</NavLink>
                 </Menu.Item>
 
                 <Menu.Item key="/search">

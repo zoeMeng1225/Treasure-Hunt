@@ -2,7 +2,7 @@ import React, {Component} from "react";
 
 import { Layout, Menu } from "antd";
 
-const { Header, Content, Footer } = Layout;
+const { Header } = Layout;
 
 
 class SubNavBar extends Component {

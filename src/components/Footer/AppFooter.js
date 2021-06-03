@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
+import {NavLink} from "react-router-dom";
 
-import {Col, Row, Layout,Button} from 'antd';
-import {NavLink} from 'react-router-dom'
+import {Col, Row, Button} from 'antd';
+
 
 class AppFooter extends Component {
     render() {
@@ -12,7 +13,6 @@ class AppFooter extends Component {
                     <Button type="text">ABOUT</Button>
                 </Col>
                 <Col xs={{ span: 11, offset: 1 }} lg={{ span: 6, offset: 2 }}>
-                    {/*<a href="" className="footer-links">SHOP</a>*/}
                     <NavLink  to="/items" activeClassName="footer-shop-active-class" className="link">
                         <Button type="text">SHOP</Button>
                     </NavLink>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {NavLink} from "react-router-dom";
 
-import {Menu, Button, Card} from "antd";
+import {Menu, Button} from "antd";
 
 import ItemList from '../ItemList/ItemList'
 import MyListings from '../MyListings/MyListings'
@@ -19,7 +19,6 @@ class RightMenu extends Component {
             <Menu mode="horizontal" className="Right-menu">
                 <Item key="/saved-listings">
                     {/*TODO: cannot change text color (unlike for sub nav bar). Would <Link to="/savedItems"> vs. <NavLink vs. <a href make a difference in customizing the menu item theme? */}
-                    {/*can also use <Link to="/savedItems">*/}
                     <NavLink  to="/saved-listings" activeClassName="saved-listings-active-class" className="link">Saved Items</NavLink>
 
                 </Item>
@@ -28,7 +27,8 @@ class RightMenu extends Component {
                 </Item>
 
                 <Item key="/signIn">
-                    <a href="">Sign In</a>
+                    <NavLink  to="/signIn" activeClassName="signIn-active-class" className="link">Sign In</NavLink>
+                    {/*<a href="">Sign In</a>*/}
                 </Item>
                 <Item key="/signUp">
                     <NavLink  to="/signUp" activeClassName="signUp-active-class" className="link">

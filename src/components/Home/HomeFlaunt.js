@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-import {Button, Card, Col, List, Row, Space, Avatar} from "antd";
+import {Card, Col, List, Row, Avatar} from "antd";
 
 import homepage_people from "../../assets/images/homepage_people.jpg";
 import find_it from "../../assets/icons/flaunt_it.svg";
@@ -45,18 +45,18 @@ class HomeFlaunt extends Component {
         return (
             <Row align="middle">
                 <Col span={16} className="Home-page-flaunt">
-
+                    {/*TODO: smaller / better resolution "have more waste less"*/}
                     <Card
                         bordered={false}
                         cover={<img alt={"have_more_waste_less"} src={have_more_waste_less} style={haveMoreWasteLessStyle}/>}
                     >
                     </Card>
 
+                    {/*TODO: what page does "flaunt it" direct to? direct "find it" to /items; direct "set it free" to "/sell"?*/}
                     <List
                         grid={{
                             gutter: 8,
                             xs: 1, sm:2, md: 2, lg: 2, xl:2, xxl:3,
-
                         }}
                         dataSource={data}
                         renderItem={item => (
@@ -73,7 +73,6 @@ class HomeFlaunt extends Component {
                                 </Card>
                             </List.Item>
                         )}
-
                     />
 
                 </Col>
@@ -86,8 +85,6 @@ class HomeFlaunt extends Component {
                     </Card>
                 </Col>
             </Row>
-
-
 
         );
     }

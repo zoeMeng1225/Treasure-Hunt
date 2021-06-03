@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-import {Col, Row, Layout, Menu, Input, Space, Affix} from "antd";
+import {Layout, Input, Affix} from "antd";
 
 import CarouselSlides from "./CarouselSlides";
 import ShopCategory from "./ShopCategory";
@@ -9,17 +9,19 @@ import SubNavBar from "../Header/SubNavBar";
 import HomeFlaunt from "./HomeFlaunt";
 import AppFooter from "../Footer/AppFooter";
 
+const { Content, Footer } = Layout;
 
 const { Search } = Input;
-
-const { Header, Content, Footer } = Layout;
-
 const onSearch = value => console.log(value);
+
+const homeLayoutStyle={
+    background: 'white'
+}
 
 class Home extends Component {
     render() {
         return (
-            <Layout className="Homelayout">
+            <Layout style={homeLayoutStyle}>
 
                 <Affix offsetTop={0} className="app__affix-header">
                     <TopNavBar/>

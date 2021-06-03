@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-import { List, Card } from 'antd';
+import { List, Card } from "antd";
 
 import furniture1 from "../../assets/images/furniture1.jpg";
 import car1 from "../../assets/images/car1.jpg";

@@ -1,16 +1,14 @@
 import React, {Component} from "react";
 
-import { Carousel } from 'antd';
+import { Carousel } from "antd";
 
-import CarouselSlideSell from './CarouselSlideSell';
-import CarouselSlideBuy from './CarouselSlideBuy';
+import CarouselSlideSell from "./CarouselSlideSell";
+import CarouselSlideBuy from "./CarouselSlideBuy";
 
 
-function onChange(a, b, c) {
-    console.log(a, b, c);
+function onChange(a, b) {
+    console.log(a, b);
 }
-
-
 
 
 class CarouselSlides extends Component {

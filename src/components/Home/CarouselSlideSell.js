@@ -1,10 +1,11 @@
 import React, {Component} from "react";
+import {NavLink} from "react-router-dom";
 
-import {Button, Card, Col, Layout, Row} from "antd";
+import {Button, Card, Col, Row} from "antd";
 
 import homepage1 from "../../assets/images/homepage1.jpg";
 import sell_faster from '../../assets/images/sell_faster.png';
-import {NavLink} from 'react-router-dom'
+
 
 const cardBodyStyle = {
     textAlign: 'left',
