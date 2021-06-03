@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Card, Col, Layout, List, Row, Space, message } from "antd";
 import axios from "axios";
 
-import { BASE_URL, TOKEN_KEY } from "../../constants/constants";
+import {
+  BASE_URL,
+  PICTURE_URL_PREFIX,
+  TEST_TOKEN,
+  TOKEN_KEY,
+} from "../../constants/constants";
 import "./SavedListings.style.css";
 
 const { Header, Content } = Layout;
@@ -14,19 +19,21 @@ const SavedListings = () => {
 
   // fetchListings
   const fetchListings = async () => {
-    const url = `${BASE_URL}/saved-listings`;
+    const url = `/saved-listings`;
 
     // define request
     const opt = {
       method: "GET",
       url: url,
       headers: {
-        Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+        Authorization: `Bearer ${TEST_TOKEN}`,
       },
     };
 
     try {
       const response = await axios(opt);
+      console.log(response);
+
       if (response.status === 200) {
         setSavedListings(response.data);
       }
@@ -36,25 +43,37 @@ const SavedListings = () => {
     }
   };
 
-  const testData = [];
-  for (let i = 0; i < 23; i++) {
-    testData.push({
-      title: `My Listing ${i}`,
-      avatar:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-      description: `Description for my listing ${i}`,
-      picture_url: [
-        "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
-      ],
-      location: "New York, NY",
-      price: 49.99,
-    });
-  }
+  // test
+  const fetchListingDetail = async () => {
+    const product_id = "1622614549717";
+    const newURL = `/listing?listing_id=${product_id}`;
+
+    const opt = {
+      method: "GET",
+      url: newURL,
+      // headers: {
+      //   Authorization: `Bearer ${TOKEN_KEY}`//localStorage.getItem()
+      // }
+    };
+
+    try {
+      console.log("Trying to fetch");
+      const response = await axios(opt);
+      console.log(response);
+      if (response.status === 200) {
+        console.log(response.data);
+        // setListingDetail(response.data);
+      }
+    } catch (err) {
+      message.error("Fetch listing detail failed");
+      console.log("Fetch listing detail failed: ", err.message);
+    }
+  };
 
   // fetchListings on start, for now, use testData
   useEffect(() => {
+    fetchListingDetail();
     fetchListings();
-    setSavedListings(testData);
   }, []);
 
   const ListingInfo = ({ item, value }) => (
@@ -63,6 +82,10 @@ const SavedListings = () => {
       {value}
     </Space>
   );
+
+  const getPictureUrl = (picture_urls) => {
+    return `${PICTURE_URL_PREFIX}${Object.values(picture_urls)[0]}`;
+  };
 
   return (
     <div className="saved-listings-page">
@@ -85,7 +108,9 @@ const SavedListings = () => {
                 <Card
                   hoverable
                   style={{ width: "100%" }}
-                  cover={<img alt="pic" src={item.picture_url} />}
+                  cover={
+                    <img alt="pic" src={getPictureUrl(item.picture_urls)} />
+                  }
                 >
                   <Meta title={item.title} className="listing-info" />
                   <Row gutter={[16, 24]} className="listing-info">
