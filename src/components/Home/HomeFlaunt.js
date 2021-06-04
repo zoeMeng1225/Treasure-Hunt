@@ -1,14 +1,16 @@
 import React, {Component} from "react";
 
-import {Card, Col, List, Row, Avatar} from "antd";
+import {Card, Col, List, Row, Avatar, Typography} from "antd";
 
 import homepage_people from "../../assets/images/homepage_people.jpg";
-import find_it from "../../assets/icons/flaunt_it.svg";
-import flaunt_it from "../../assets/icons/find_it.svg";
+import find_it from "../../assets/icons/find_it.svg";
+import flaunt_it from "../../assets/icons/flaunt_it.svg";
 import set_it_free from "../../assets/icons/set_it_free.svg";
-import have_more_waste_less from "../../assets/images/have-more-waste-less.png";
+import have_more_waste_less from "../../assets/images/have-more-waste-less-smaller.png";
+import waste_less from "../../assets/images/waste-less.png";
 
 const { Meta } = Card;
+const { Title, Text } = Typography;
 
 const data = [
     {
@@ -34,9 +36,14 @@ const data = [
     },
 ];
 
-const haveMoreWasteLessStyle ={
+const haveMoreWasteLessStyle={
     paddingRight:'24px',
     paddingLeft:'24px',
+}
+
+const haveMoreWasteLessHeadStyle={
+    textAlign: 'left',
+    borderBottom:'0px'
 }
 
 
@@ -46,10 +53,14 @@ class HomeFlaunt extends Component {
             <Row align="middle">
                 <Col span={16} className="Home-page-flaunt">
                     {/*TODO: smaller / better resolution "have more waste less"*/}
-                    <Card
-                        bordered={false}
-                        cover={<img alt={"have_more_waste_less"} src={have_more_waste_less} style={haveMoreWasteLessStyle}/>}
+                    <Card headStyle={haveMoreWasteLessHeadStyle}
+                          // title={<Title level={2} style={{color:'#142264'}}>HAVE MORE</Title>}
+                          bordered={false}
+                          cover={<img alt={"have_more_waste_less"} src={have_more_waste_less} style={haveMoreWasteLessStyle}/>}
+                          // cover={<img alt={"waste_less"} src={waste_less} style={haveMoreWasteLessStyle}/>}
                     >
+                        {/*<Title level={2} style={{color:'#142264'}}>HAVE MORE</Title>*/}
+                        {/*<Title level={1}style={{color:'#142264', margin:'0px'}}> WASTE LESS </Title>*/}
                     </Card>
 
                     {/*TODO: what page does "flaunt it" direct to? direct "find it" to /items; direct "set it free" to "/sell"?*/}
