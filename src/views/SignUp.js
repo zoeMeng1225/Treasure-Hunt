@@ -7,12 +7,36 @@ import SplitLayout from '../components/SplitLayout/SplitLayout';
 import SignUpPhoto from '../assets/images/signup_img.jpg'
 
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 class SignUp extends Component {
 
-    onFinish() {
-        console.log('finished')
-    }
+    onFinish(userData) {
+        console.log(userData)
+        // const opt = {
+        //     method:"POST",
+        //     url: "/signup",
+        //     data:{
+        //         email: userData["student-email"],
+        //         user_id: userData["student-email"], 
+        //         password: userData.password,
+        //         //first_name: userData.first_name,
+        //         //
+        //     },
+        //     headers: {"Content-Type": "application/json"}
+        // };
+        // axios(opt)
+        //     .then((res) => {
+        //         if (res.status == 200){
+        //             const {data} = res;
+        //             //redirect to Home Page 
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.log("login failed: ", err.message);
+        //         //send an error message
+        //     });
+        }
 
     onFinishFailed() {
         console.log('failed')
@@ -166,7 +190,7 @@ class SignUp extends Component {
                             </Row>
 
                             <Form.Item>
-                                <Button id="signup-button" block>
+                                <Button id="signup-button" block htmlType="submit">
                                     Sign up
                                 </Button>
                             </Form.Item>

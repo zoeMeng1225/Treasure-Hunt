@@ -1,18 +1,41 @@
 import React, {Component} from 'react';
 
-import {Col, Row } from 'antd';
+import {Col, message, Row } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 
 import SplitLayout from '../components/SplitLayout/SplitLayout.js';
 import LoginPhoto from '../assets/images/login_img.jpg'
 
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 class Login extends Component {
 
-    onFinish() {
-        console.log('finished')
-    }
+    onFinish(userData) {
+        console.log(userData)
+        //console.log('finished')
+        //const{ username, password} = values;
+        const opt = {
+            method:"POST",
+            url: "/login",
+            data:{
+                user_id: userData["student-email"], 
+                password: userData.password,
+            },
+            headers: {"Content-Type": "application/json"}
+        };
+        axios(opt)
+            .then((res) => {
+                if (res.status == 200){
+                    const {data} = res;
+                    //redirect to Home Page 
+                }
+            })
+            .catch((err) => {
+                console.log("login failed: ", err.message);
+                //send an error message
+            });
+    };
 
     onFinishFailed() {
         console.log('failed')
@@ -55,7 +78,7 @@ class Login extends Component {
                             </Form.Item>
 
                             <Form.Item>
-                                <Button id="login-button" block>
+                                <Button id="login-button" block htmlType="submit"> 
                                     Login
                                 </Button>
                             </Form.Item>
