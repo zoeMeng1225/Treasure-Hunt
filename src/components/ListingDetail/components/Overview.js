@@ -11,8 +11,9 @@ import {
 import { BASE_URL, TOKEN_KEY } from '../../../constants/constants'
 
 import '../styles/Overview.css'
+//TODO: change token 
 const Overview = props => {
-  //const { title, date, category, location, price, sellerId, userId,listingId } = props
+  //
   const { listingInfo, userId } = props
   const category = listingInfo.category
   const title = listingInfo.title
@@ -53,22 +54,22 @@ const Overview = props => {
       console.log('Buyer save without login. Go to login page')
     } else {  
       saveListing(!isSave)
-      setIsSave(!isSave)
-     
+      //setIsSave(!isSave)
       console.log('negate save star')
       
     }
   }
 
   const saveListing = async save => {
+    
     console.log("saveListing",save)
     const url = `${BASE_URL}/save`
-    const request = save == true ? 'Post' : 'DELETE'
+    const request = save == true ? 'POST' : 'DELETE'
     const opt = {
       method: request,
       url: url,
       headers: {
-        Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`
+        Authorization: `Bearer ${TOKEN_KEY}`
       },
       data: {
         user_id: userId,
@@ -79,6 +80,7 @@ const Overview = props => {
     try {
       const response = await axios(opt)
       if (response.status === 200) {
+        setIsSave(!isSave)
         console.log('Save/Unsave listing')
       }
     } catch (err) {

@@ -10,14 +10,6 @@ const TextualInfo = props => {
   return (
     <div className="textual-info">
       <Overview
-        // title={listingInfo.title}
-        // date={listingInfo.date}
-        // category = {listingInfo.category}
-        // location={listingInfo.city_and_state}
-        // price={listingInfo.price}
-        // sellerId={listingInfo.seller_id}
-        // userID = {userID}
-        // listingId={listingInfo.listing_id}
         listingInfo = {listingInfo} userID = {userID}
       />
       <Details

@@ -1,18 +1,22 @@
-import React from "react"
-import { Carousel } from "antd"
-import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons"
-import "../styles/Pictures.css"
+import React from "react";
+import { Carousel } from "antd";
+import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import "../styles/Pictures.css";
 
 const contentStyle = {
   height: "160px",
   color: "#fff",
   lineHeight: "160px",
   textAlign: "center",
-  background: "#364d79"
-}
+  background: "#364d79",
+};
 
-const Pictures = props => {
-  //const { pictureUrls } = props.pictureUrls
+const Pictures = (props) => {
+  const { pictureUrls } = props;
+  const urls = Object.values(pictureUrls)
+  //console.log(Object.values(pictureUrls));
+
+
   return (
     <div>
       <Carousel
@@ -23,23 +27,12 @@ const Pictures = props => {
         // prevArrow={<ArrowLeftOutlined />}
         swipeToSlide={true}
       >
-        <img
-          src={
-            "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-          }
-          className="picture"
-          alt="no pictuire"
-        />
-        <img
-          src={
-            "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-          }
-          className="picture"
-          alt="no pictuire"
-        />
+        {urls.map((url) => {
+          return <img  src={url}  />;
+        })}
       </Carousel>
     </div>
-  )
-}
+  );
+};
 
-export default Pictures
+export default Pictures;

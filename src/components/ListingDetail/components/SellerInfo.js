@@ -35,7 +35,7 @@ const SellerInfo = props => {
             </Col>
           </Row>
         </Col>
-        <Col span={6}>
+        <Col span={6}  align="right" >
           <Button
             className='contact-btn'
             type='primary'

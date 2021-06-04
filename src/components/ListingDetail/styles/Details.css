@@ -23,6 +23,7 @@
 }
 .title {
   width: fit-content;
+  font-size: 35px;
   flex: 1;
   text-align: left;
 }

@@ -10,7 +10,9 @@ import "./ListingDetail.css";
 
 const ListingDetail = (props) => {
   const testMode = true;
-  const [listingDetail, setListingDetail] = useState([]);
+  const [listingDetail, setListingDetail] = useState({
+    picture_urls: {}
+  });
   const { Header, Content } = Layout;
   //TODO: product_id and userID is passed from pervious page
   const product_id = "1622614549717";
@@ -28,8 +30,9 @@ const ListingDetail = (props) => {
     brand: "Cannondale",
     address: "2922 Northern Blvd #2104, Long Island City, NY 11101, USA",
     picture_urls: {
-      "1622653273995bike2.jpg":
-        "1622653273995bike2.jpg?generation=1622653274433452&alt=media",
+      a: "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      b: "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+      c: "https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
     },
     date: "2021-06-02T17:01:14.421Z",
     geo_location: {
@@ -61,6 +64,26 @@ const ListingDetail = (props) => {
     }
   };
 
+  // useEffect(() => {
+  //   console.log("fetching data");
+  //   axios.get('/listing', {params: {
+  //     listing_id: '1622736662713',
+  //   }
+  //   })
+  //    .then((res) => {
+  //      console.log("fetched data")
+  //      console.log(res);
+  //      setListing(res.data);
+   
+  //      console.log(listing);
+  //    })
+  //    .catch((e) => console.log(e));
+  //  }, []);
+ 
+  //  function onChange(value) {
+  //    console.log('changed', value);
+  //  }
+ 
   useEffect(() => {
     createUrl();
 
