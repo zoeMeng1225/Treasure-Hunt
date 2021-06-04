@@ -1,11 +1,11 @@
-import React from "react";
-import { BrowserRouter, Route, Router, Switch, Link } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import HomePage from "./components/Home/Home";
-import ItemList from "./components/ItemList/ItemList";
-import MyListings from "./components/MyListings/MyListings";
-import SavedListings from "./components/SavedListings/SavedListings";
-import "./App.css";
+import HomePage from './components/Home/Home';
+import ItemList from './components/ItemList/ItemList';
+import MyListings from './components/MyListings/MyListings';
+import SavedListings from './components/SavedListings/SavedListings';
+import './App.css';
 
 // this component should be a root router file
 function App() {
