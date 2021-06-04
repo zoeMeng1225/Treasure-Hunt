@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-import { List, Card } from "antd";
+import { List, Card, Typography } from "antd";
 
 import furniture1 from "../../assets/images/furniture1.jpg";
 import car1 from "../../assets/images/car1.jpg";
@@ -10,6 +10,7 @@ import book from "../../assets/images/book.jpg";
 import exercise_equipment from "../../assets/images/exercise_equipment.jpg";
 
 const { Meta } = Card;
+const { Title } = Typography;
 
 const data = [
     {
@@ -45,15 +46,16 @@ const data = [
 ];
 
 
-// const shopCategoryHeadStyle = {
-//     textAlign: 'left',
-// };
+const shopCategoryHeadStyle = {
+    textAlign: 'left',
+    borderBottom:'0px'
+};
 
 
 class ShopCategory extends Component {
     render() {
         return (
-            <Card title="Shop Category" bordered={false}>
+            <Card headStyle={shopCategoryHeadStyle} title={<Title level={2} style={{color:'#142264'}}>SHOP CATEGORY</Title>} bordered={false}>
                 <List
                     grid={{
                         gutter: 16,
