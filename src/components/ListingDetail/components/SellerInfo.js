@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Modal, Row, Col, Button, Divider, Avatar, Space } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import '../styles/SellerInfo.css'

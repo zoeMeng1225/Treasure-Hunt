@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { TOKEN_KEY } from '../../constants/constants';
 
 const useFetchListingDetail = () => {
   const [isFetching, setIsFetching] = useState(false);
@@ -26,7 +25,7 @@ const useFetchListingDetail = () => {
     }
   };
 
-  return { isFetching, fetchListingDetail };
+  return { isFetching, fetchListingDetail};
 };
 
 export default useFetchListingDetail;

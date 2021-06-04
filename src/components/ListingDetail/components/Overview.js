@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import axios from 'axios';
 import { Row, Col, Button, message } from 'antd';
 import { StarOutlined, StarFilled } from '@ant-design/icons';
-import { BASE_URL, TOKEN_KEY } from '../../../constants/constants';
 import { useSaveListing } from 'hooks';
 import { useFetchMyListings } from 'hooks';
 import '../styles/Overview.css';
 
 const Overview = (props) => {
-  
-  const pageName = "Listing Detail Page: Overview: "
+  const pageName = 'Listing Detail Page: Overview: ';
   const { listingInfo, userId } = props;
   const listingId = listingInfo.listing_id;
   const sellerId = listingInfo.seller_id;
@@ -47,7 +44,7 @@ const Overview = (props) => {
     }
   };
 
-  // fetch save listings and check if current listing/item is in fetched listings 
+  // fetch save listings and check if current listing/item is in fetched listings
   const checkInSaveListing = async () => {
     const { listings, error } = await fetchMyListings();
     if (error !== undefined) {
@@ -61,7 +58,7 @@ const Overview = (props) => {
     }
   };
 
-//TODO: link to login page
+  //TODO: link to login page
   const onSaveClick = () => {
     console.log('Save btn clicked');
     if (!isLogIn) {
