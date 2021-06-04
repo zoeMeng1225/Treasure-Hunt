@@ -94,7 +94,7 @@ const MyListings = () => {
                     />,
                     <ListingInfo
                       item="Created At : "
-                      value={item.created_date}
+                      value={item.date}
                       key="listing_date"
                     />,
                   ]}
