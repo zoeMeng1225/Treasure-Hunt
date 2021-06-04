@@ -76,7 +76,7 @@ const MyListings = () => {
                 },
                 pageSize: 5,
               }}
-              dataSource={myListings}
+              dataSource={myListings.reverse()} // Sorted by recency
               footer={
                 <div>
                   <b>Treasure Hunt</b> footer part
@@ -94,7 +94,7 @@ const MyListings = () => {
                     />,
                     <ListingInfo
                       item="Created At : "
-                      value={item.date}
+                      value={item.date.slice(0, 10)}
                       key="listing_date"
                     />,
                   ]}
