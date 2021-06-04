@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import {NavLink} from "react-router-dom";
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import {Menu, Button} from "antd";
+import { Menu, Button } from 'antd';
+
 
 const { Item } = Menu;
 
@@ -60,5 +61,6 @@ class RightMenu extends Component {
             </Menu>
         );
     }
+
 }
 export default RightMenu;
