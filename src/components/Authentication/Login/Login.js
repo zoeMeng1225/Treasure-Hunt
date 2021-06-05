@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import {Col, message, Row } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 
-import SplitLayout from '../components/SplitLayout/SplitLayout.js';
-import LoginPhoto from '../assets/images/login_img.jpg'
+import SplitLayout from '../SplitLayout/SplitLayout.js';
+import LoginPhoto from '../../../assets/images/login_img.jpg'
 
 import { Link } from 'react-router-dom';
 import axios from "axios";
@@ -61,11 +61,11 @@ class Login extends Component {
                         >
                             <Form.Item
                                 className="form-item"
-                                label="Student Email"
-                                name="student-email"
-                                rules={[{ required: true, message: 'Student Email is required' }]}
+                                label="Username"
+                                name="username"
+                                rules={[{ required: true, message: 'Username is required' }]}
                             >
-                                <Input placeholder="Enter your student email" />
+                                <Input placeholder="Username" />
                             </Form.Item>
 
                             <Form.Item
@@ -74,7 +74,7 @@ class Login extends Component {
                                 name="password"
                                 rules={[{ required: true, message: 'Password is required' }]}
                             >
-                                <Input.Password placeholder="Enter password" />
+                                <Input.Password placeholder="Password" />
                             </Form.Item>
 
                             <Form.Item>
