@@ -5,10 +5,12 @@ import HomePage from './components/Home/Home';
 import ItemList from './components/ItemList/ItemList';
 import MyListings from './components/MyListings/MyListings';
 import SavedListings from './components/SavedListings/SavedListings';
-import './App.css';
+
 import Login from './components/Authentication/Login/Login';
 import SignUp from './components/Authentication/SignUp/SignUp'
+import ListingDetail from "./components/ListingDetail/ListingDetail";
 
+import './App.css';
 // this component should be a root router file
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
         <Route path="/signup" component={SignUp} />
         <Route exact path="/my-listings-page" component={MyListings} />
         <Route exact path="/saved-listings-page" component={SavedListings} />
+        <Route path="/listing-detail" component={ListingDetail} />
       </Switch>
     </BrowserRouter>
   );

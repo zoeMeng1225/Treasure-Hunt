@@ -21,8 +21,8 @@ const homeLayoutStyle={
 class Home extends Component {
     render() {
         return (
-            <Layout style={homeLayoutStyle}>
-
+            // <Layout style={homeLayoutStyle}>
+            <Layout className="Homelayout">
                 <Affix offsetTop={0} className="app__affix-header">
                     <TopNavBar/>
                     <SubNavBar/>

@@ -2,8 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Martel+Sans:wght@400;700&family=Cabin:wght@700&display=swap');
 
 @import './components/ItemList/ItemList.style.css';
-@import './components/Header/TopNavBar.css';
 @import './components/Header/SubNavBar.css';
+@import './components/Header/TopNavBar.css';
 @import './components/Home/HomeFlaunt.css';
 @import './components/Home/CarouselSlides.css';
 

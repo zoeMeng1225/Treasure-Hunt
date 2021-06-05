@@ -25,7 +25,8 @@
     margin: 0px;
 }
 
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected{
-    color:#00a9cd;
-    border-bottom: #00a9cd;
+.ant-menu-overflow-item:hover, .ant-menu-overflow-submenu:hover, .ant-menu-overflow-item-active, .ant-menu-overflow-submenu-active, .ant-menu-overflow-item-open, .ant-menu-overflow-submenu-open, .ant-menu-overflow-item-selected, .ant-menu-overflow-submenu-selected{
+    color:#ff8300;
+    border-bottom: 2px solid #ff8300;
 }
+
