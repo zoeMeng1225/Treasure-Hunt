@@ -15,8 +15,8 @@ function App() {
         {/* add your router here like this. */}
         <Route exact path="/" component={HomePage} />
         <Route path="/items" component={ItemList} />
-        <Route exact path="/my-listings-page" component={MyListings} />
-        <Route exact path="/saved-listings-page" component={SavedListings} />
+        <Route exact path="/my-listings" component={MyListings} />
+        <Route exact path="/saved-listings" component={SavedListings} />
       </Switch>
     </BrowserRouter>
   );
