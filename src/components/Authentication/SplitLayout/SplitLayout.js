@@ -10,24 +10,25 @@ class SplitLayout extends Component {
 
     render() {
         let left = null, right = null;
+        const img = (<img className="sl_photo" src={ this.props.src } alt="photo"></img>);
+        const content = (this.props.children);
         if(this.props.content === 'right') {
-            left = (<img className="split-layout-photo" src={ this.props.src } alt="photo"></img>)
-            right = (this.props.children)
+            left = img;
+            right = content;
         } else {
-            right = (<img className="split-layout-photo" src={ this.props.src } alt="photo"></img>)
-            left = (this.props.children)
+            right = img;
+            left = content;
         }
 
-
         return (
-            <Row>
-                <Col span={12}>
+            <div className="sl_container">
+                <div id="sl_left" className={this.props.content === 'right' ? '' : 'sl_content'}>
                     { left }
-                </Col>
-                <Col span={12}>
+                </div>
+                <div id="sl_right" className={this.props.content === 'right' ? 'sl_content' : ''}>
                     { right }
-                </Col>
-            </Row>
+                </div>
+            </div>
         );
     }
 }

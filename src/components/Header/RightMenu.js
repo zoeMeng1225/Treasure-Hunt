@@ -46,15 +46,15 @@ class RightMenu extends Component {
 
                 {/*TODO: Remove border bottom?*/}
                 {/*TODO: Distinguish style between sign in & the other 2 tabs (saved items & my listings)*/}
-                <Item key="/signIn">
-                    <NavLink  to="/signIn" activeClassName="signIn-active-class" className="signIn-class">
-                        <Button>Sign In</Button>
+                <Item key="/login">
+                    <NavLink  to="/login" activeClassName="signIn-active-class" className="signIn-class">
+                        <Button>Login</Button>
                     </NavLink>
                 </Item>
 
                 {/*TODO: Remove border bottom?*/}
-                <Item key="/signUp">
-                    <NavLink  to="/signUp" activeClassName="signUp-active-class" className="signUp-class">
+                <Item key="/signup">
+                    <NavLink  to="/signup" activeClassName="signUp-active-class" className="signUp-class">
                         <Button type="primary" style={navBarSignUpButtonStyle}>Sign Up</Button>
                     </NavLink>
                 </Item>
