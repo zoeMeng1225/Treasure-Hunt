@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Layout, List, Row, Spin, message } from 'antd';
+import { Affix, Card, Col, Layout, List, Row, Spin, message } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import { PICTURE_URL_PREFIX } from 'constants/constants';
 import './SavedListings.style.css';
 import { useLogin, useFetchSavedListings } from 'hooks';
 import { useHistory } from 'react-router';
+import TopNavBar from 'components/Header/TopNavBar';
 
 const { Header, Content } = Layout;
 const { Meta } = Card;
@@ -43,7 +44,9 @@ const SavedListings = () => {
   return (
     <div className="saved-listings-page">
       <Layout>
-        <Header>Header</Header>
+        <Affix offsetTop={0} className="app__affix-header">
+          <TopNavBar />
+        </Affix>
         <Content className="saved-listings-content">
           {isFetching ? (
             <Spin
