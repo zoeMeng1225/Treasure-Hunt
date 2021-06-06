@@ -1,15 +1,16 @@
+
 import React, {useState, useEffect, useCallback} from 'react';
 import { Layout, Row, Col, Menu, Dropdown, Button, Space } from 'antd';
 import Item from './Item/Item';
 import GoogleMap  from './Map/GoogleMap';
 import Axios from 'axios';
 import Moment from 'moment';
-import { BASE_URL } from '../../constants/constants';
 
-import './ItemList.style.css';
-import { FilterOutlined , OrderedListOutlined } from '@ant-design/icons';
+import { useFetchMyListings } from '../../hooks/index';
+import "./ItemList.style.css";
+import { FilterOutlined, OrderedListOutlined } from "@ant-design/icons";
 
-const {Header, Content} = Layout;
+const { Header, Content } = Layout;
 
 const filterMenu = (
   <Menu>
@@ -20,20 +21,22 @@ const filterMenu = (
     <Menu.Item>Books</Menu.Item>
     <Menu.Item>Apparels</Menu.Item>
   </Menu>
-)
-
-
+);
 
 const ItemList = () => {
   const [items, setItems] = useState([]);
   const [itemData, setItemData] = useState({});
-  const changData = useCallback(para => setItemData(para), [])
+
+  const changData = useCallback((para) => setItemData(para), []);
   
+  // console.log(useFetchMyListings)
 
   useEffect(() => {
-    Axios.get(`${BASE_URL}search?category=Electronics`)
+    
+    Axios.get()
     .then(res => {
       setItems(res.data.product);
+
     })
     .catch(e => console.log(e));
   }, []);
@@ -45,7 +48,7 @@ const ItemList = () => {
     });
 
     setItems(sorted);
-  }
+  };
 
   const sortHighToLow = () => {
     const sorted = [...items].sort((a, b) => {
@@ -53,59 +56,69 @@ const ItemList = () => {
     });
 
     setItems(sorted);
-  }
+  };
 
   const sortNewest = () => {
     const sorted = [...items].sort((a, b) => {
-      return new Moment(a.create.substr(0, 10)).format('YYYYMMDD') 
-      - new Moment(b.create.substr(0, 10)).format('YYYYMMDD');
+      return (
+        new Moment(a.create.substr(0, 10)).format("YYYYMMDD") -
+        new Moment(b.create.substr(0, 10)).format("YYYYMMDD")
+      );
     });
 
     setItems(sorted);
-  }
+  };
 
   const menu = (
     <Menu>
-      <Menu.Item onClick = {() => sortHighToLow()} visible type= "button" >Price: High-Low</Menu.Item>
-      <Menu.Item onClick = {() => sortLowToHigh()} visible type= "button" >Price: Low-High</Menu.Item>
-      <Menu.Item onClick = {() => sortNewest()} visible type= "button" >Newest</Menu.Item>   
+      <Menu.Item onClick={() => sortHighToLow()} visible type="button">
+        Price: High-Low
+      </Menu.Item>
+      <Menu.Item onClick={() => sortLowToHigh()} visible type="button">
+        Price: Low-High
+      </Menu.Item>
+      <Menu.Item onClick={() => sortNewest()} visible type="button">
+        Newest
+      </Menu.Item>
     </Menu>
-  )
+  );
 
-
-  return(
-    <div className = 'items-page'>
+  return (
+    <div className="items-page">
       <Layout>
         <Header>Header</Header>
-        <Content className = "item-list-row">
-         <Row >
-           <Col span = {14} className = "item-list">
-             <h1>Item near you</h1>
-             <div className = 'item-icons'>
-              <Space direction = "vertical" className = "filter">
-                <Space wrap>
-                  <Dropdown overlay = {menu} placement="bottomCenter">
-                    <Button icon = {<OrderedListOutlined />}>Sort by</Button>
-                  </Dropdown>
-                  <Dropdown overlay = {filterMenu} placement="bottomCenter">
-                    <Button icon = {<FilterOutlined />}>Filter</Button>
-                  </Dropdown>
+        <Content className="item-list-row">
+          <Row>
+            <Col span={14} className="item-list">
+              <h1>Item near you</h1>
+              <div className="item-icons">
+                <Space direction="vertical" className="filter">
+                  <Space wrap>
+                    <Dropdown overlay={menu} placement="bottomCenter">
+                      <Button icon={<OrderedListOutlined />}>Sort by</Button>
+                    </Dropdown>
+                    <Dropdown overlay={filterMenu} placement="bottomCenter">
+                      <Button icon={<FilterOutlined />}>Filter</Button>
+                    </Dropdown>
+                  </Space>
                 </Space>
-              </Space>
-             </div>
-            
-             <div className = "items">
-              <Item Products = {items} changeData = {changData} /> 
-             </div>
-           </Col>
-           <Col span = {10} className = "map-container">
-            <GoogleMap latitude = {itemData.latitude} longitude = {itemData.longitude}/>
-           </Col>
-         </Row>
+              </div>
+
+              <div className="items">
+                <Item Products={items} changeData={changData} />
+              </div>
+            </Col>
+            <Col span={10} className="map-container">
+              <GoogleMap
+                latitude={itemData.latitude}
+                longitude={itemData.longitude}
+              />
+            </Col>
+          </Row>
         </Content>
       </Layout>
     </div>
-  ) 
-}
+  );
+};
 
 export default ItemList;

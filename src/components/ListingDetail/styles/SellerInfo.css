@@ -1,0 +1,21 @@
+.seller-section {
+    margin-top: 30px;
+    font-size: 40px;
+  }
+  .seller-info {
+    padding: 15px;
+    font-size: 30px;
+  }
+  .contact-btn {
+    background: white;
+    color: #00a9cd;
+    border-color: #00a9cd;
+    width: fit fit-content;
+  }
+  button[ant-click-animating-without-extra-node]:after {
+    border: 0 none;
+    opacity: 0;
+    animation: none 0 ease 0 1 normal;
+  }
+
+  

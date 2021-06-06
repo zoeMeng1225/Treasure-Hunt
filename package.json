@@ -40,5 +40,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "proxy": "https://0-1-dot-treasure-hunt-314706.uc.r.appspot.com",
+  "devDependencies": {
+    "react-router-dom": "^5.2.0"
   }
 }
