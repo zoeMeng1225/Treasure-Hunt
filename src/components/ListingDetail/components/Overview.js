@@ -4,13 +4,19 @@ import { Row, Col, Button, message } from 'antd';
 import { StarOutlined, StarFilled } from '@ant-design/icons';
 import { useSaveListing } from 'hooks';
 import { useFetchMyListings } from 'hooks';
+import { TOKEN_KEY } from '../../../constants/constants';
 import '../styles/Overview.css';
+import jwt_decode from 'jwt-decode';
 
 const Overview = (props) => {
   const pageName = 'Listing Detail Page: Overview: ';
-  const { listingInfo, userId } = props;
+  const { listingInfo } = props;
+
   const listingId = listingInfo.listing_id;
   const sellerId = listingInfo.seller_id;
+  console.log('init listingInfo: ', listingInfo);
+  console.log('init seller id: ', sellerId);
+
   const { isSaving, saveListing } = useSaveListing();
   const { isFetching, fetchMyListings } = useFetchMyListings();
 
@@ -18,23 +24,18 @@ const Overview = (props) => {
   const [isLogIn, setIsLogIn] = useState(false);
   const [isSeller, setIsSeller] = useState(true);
 
-
-
-useEffect(() => {
+  //const token = localStorage.getItem(TOKEN_KEY);
+  const token =
+    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaXVzaGFuZzEiLCJhdWQiOiJ2aWRlbyBkZW1vIiwiZW1haWwiOiJuaXVzaGFuZzFAZ21haWwuY29tIiwiaWF0IjoxNjIyOTg4MDg3LCJleHAiOjE2MjI5OTE2ODd9.iyFC9gvUTU2X31gS6aK59HCNvMzCXp9Dn5djbmU1n5U';
+  const decodedToken = jwt_decode(token);
+  const userId = decodedToken.sub;
+  console.log('init  userId: ', userId);
+  useEffect(() => {
     initState();
   }, []);
 
   const initState = () => {
-    //TODO: init isSave isLogIn isSeller
-    
-    if (sellerId === userId) {
-      setIsSeller(true);
-    } else {
-      //use is buyer
-      setIsSeller(false);
-      //check if buyer has saved listings
-      checkInSaveListing();
-    }
+    checkInSaveListing();
   };
 
   // fetch save listings and check if current listing/item is in fetched listings
@@ -65,7 +66,11 @@ useEffect(() => {
   };
 
   const save = async (save) => {
-    const { listings, error } = await saveListing(save, userId, listingId);
+    const { listings, error } = await saveListing(
+      save,
+      decodedToken.sub,
+      listingId
+    );
     if (error !== undefined) {
       const action = save ? 'Save' : 'Unsave';
       message.error(`${pageName}${action} listing failed`);
@@ -93,8 +98,21 @@ useEffect(() => {
             </div>
           </Row>
         </Col>
-        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={8} className="btn" align="right">
-          {isSeller === false ? ( //isSeller for testing
+        <Col
+          xs={24}
+          sm={24}
+          md={24}
+          lg={24}
+          xl={24}
+          xxl={8}
+          className="btn"
+          align="right"
+        >
+          {sellerId === decodedToken.sub ? (
+            <Button className="edit" onClick={onEditClick}>
+              Edit
+            </Button>
+          ) : (
             <Button
               size="large"
               className="star"
@@ -107,8 +125,6 @@ useEffect(() => {
               }
               onClick={onSaveClick}
             />
-          ) : (
-            <Button  className="edit" onClick={onEditClick}>Edit</Button>
           )}
         </Col>
       </Row>

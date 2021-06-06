@@ -6,7 +6,7 @@ import '../styles/TextualInfo.css';
 
 const TextualInfo = (props) => {
   const { listingInfo } = props;
-
+  console.log(listingInfo);
   return (
     <div className="textual-info">
       <Overview listingInfo={listingInfo}  />

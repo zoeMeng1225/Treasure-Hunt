@@ -6,10 +6,11 @@ import Pictures from './components/Pictures';
 import TextualInfo from './components/TextualInfo';
 import './ListingDetail.css';
 import { useFetchListingDetail } from 'hooks';
-import { TOKEN_KEY } from '../../constants/constants';
+
 const { Header, Content } = Layout;
 
 const ListingDetail = (props) => {
+  const productId = '1622754560957';
   const [listingDetail, setListingDetail] = useState({
     picture_urls: {},
   });
@@ -18,8 +19,8 @@ const ListingDetail = (props) => {
 
   //TODO: product_id and userID is passed from pervious page
   const testMode = true; //use fake data when is true
-  const productId = '1622754560957';
-  const token = localStorage.getItem(TOKEN_KEY);
+ 
+  
 
   const fakeData = {
     listing_id: '1622787358818',
@@ -60,6 +61,7 @@ const ListingDetail = (props) => {
   useEffect(() => {
     fetch();
     if (testMode) {
+      console.log('using fake date');
       setListingDetail(fakeData);
     }
   }, []);
