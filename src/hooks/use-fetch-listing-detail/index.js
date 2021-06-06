@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const useFetchListingDetail = () => {
-  const [isFetching, setIsFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
 
   const fetchListingDetail = async (productId) => {
     // define the request
@@ -11,7 +11,6 @@ const useFetchListingDetail = () => {
 
     const returnObj = {};
 
-    setIsFetching(true);
     try {
       const response = await axios.get(url, {
         params: {
@@ -20,6 +19,7 @@ const useFetchListingDetail = () => {
       });
       if (response.status === 200) {
         returnObj.fetchedListingDetail = response.data;
+        console.log(`Successfully fetched listing detail`);
       }
     } catch (err) {
       returnObj.error = err.response.status;

@@ -88,6 +88,9 @@ const MyListings = () => {
               }
               renderItem={(item) => (
                 <List.Item
+                  onClick={() =>
+                    history.push(`/listing-detail/${item.listing_id}`)
+                  }
                   className="list-item"
                   key={item.listing_id}
                   actions={[

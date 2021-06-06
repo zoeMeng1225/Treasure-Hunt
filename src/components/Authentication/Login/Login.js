@@ -23,6 +23,12 @@ const Login = () => {
       message.error('Login unsuccessful');
     } else {
       message.success(`Welcome back ${name}`);
+      while (
+        location.pathname === '/login' ||
+        location.pathname === '/signup'
+      ) {
+        history.goBack();
+      }
       history.goBack();
     }
   };

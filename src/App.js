@@ -20,9 +20,9 @@ function App() {
         <Route path="/items" component={ItemList} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route exact path="/my-listings" component={MyListings} />
+        <Route exact path="/my-listings/" component={MyListings} />
         <Route exact path="/saved-listings" component={SavedListings} />
-        <Route path="/listing-detail" component={ListingDetail} />
+        <Route path="/listing-detail/:listing_id" component={ListingDetail} />
       </Switch>
     </BrowserRouter>
   );
