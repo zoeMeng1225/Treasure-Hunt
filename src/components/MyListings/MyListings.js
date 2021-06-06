@@ -4,7 +4,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import { PICTURE_URL_PREFIX } from '../../constants/constants';
 import './MyListings.style.css';
-import { useFetchMyListings, useLogin } from '../../hooks/index';
+import { useFetchMyListings, useLogin } from 'hooks';
 
 const { Header, Content } = Layout;
 
