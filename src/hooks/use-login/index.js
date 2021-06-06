@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { TOKEN_KEY } from '../../constants/constants';
+import { TOKEN_KEY } from 'constants/constants';
 
 const useLogin = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -9,7 +9,7 @@ const useLogin = () => {
     setIsLoggingIn(true);
 
     try {
-      const response = await axios.post('/login', {
+      const response = await axios.post('/api/login', {
         user_id: username,
         password: password,
       });
