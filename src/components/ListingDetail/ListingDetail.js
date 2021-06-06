@@ -6,6 +6,7 @@ import Pictures from './components/Pictures';
 import TextualInfo from './components/TextualInfo';
 import './ListingDetail.css';
 import { useFetchListingDetail } from 'hooks';
+import { TOKEN_KEY } from '../../constants/constants';
 const { Header, Content } = Layout;
 
 const ListingDetail = (props) => {
@@ -18,8 +19,10 @@ const ListingDetail = (props) => {
   
   console.log(useFetchListingDetail)
   //TODO: product_id and userID is passed from pervious page
-  const testMode = true;//use fake data when is true
-  const productId = '1622614549717';
+  const testMode = true; //use fake data when is true
+  const productId = '1622754560957';
+  const token = localStorage.getItem(TOKEN_KEY)
+  
   const userID = 'lichengrao3';
   const fakeData = {
     listing_id: '1622614549717',
@@ -50,6 +53,7 @@ const ListingDetail = (props) => {
     if (error !== undefined) {
       message.error('Fetch listing detail failed');
     } else {
+      console.log(fetchedListingDetail);
       setListingDetail(fetchedListingDetail);
     }
   };
@@ -79,10 +83,24 @@ const ListingDetail = (props) => {
               </Button>
             </Row>
             <Row className="content">
-              <Col xs={{ span: 24 }} lg={{ span: 10, gutter: 2 }}>
+              <Col
+                xs={{ span: 24 }}
+                sm={{ span: 24 }}
+                md={{ span: 24 }}
+                lg={{ span: 24 }}
+                xl={{  span: 24 }}
+                xxl={{ span: 10, gutter: 2 }}
+              >
                 <Pictures pictureUrls={listingDetail.picture_urls} />
               </Col>
-              <Col xs={{ span: 24 }} lg={{ offset: 2, span: 10 }}>
+              <Col
+                xs={{ span: 24 }}
+                sm={{ span: 24 }}
+                md={{ span: 24 }}
+                lg={{ span: 24 }}
+                xl={{ span: 24}}
+                xxl={{ offset: 2, span: 10 }}
+              >
                 <TextualInfo listingInfo={listingDetail} userID={userID} />
               </Col>
             </Row>

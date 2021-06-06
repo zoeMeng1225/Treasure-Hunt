@@ -1,9 +1,15 @@
 
 import React, {useState, useEffect, useCallback} from 'react';
-import { Layout, Row, Col, Menu, Dropdown, Button, Space } from 'antd';
+import { Layout, 
+         Row, 
+         Col, 
+         Menu, 
+         Dropdown, 
+         Button, 
+         Space } from 'antd';
 import Item from './Item/Item';
 import GoogleMap  from './Map/GoogleMap';
-import Axios from 'axios';
+
 import Moment from 'moment';
 
 import { useSearch } from 'hooks';
@@ -26,20 +32,23 @@ const filterMenu = (
 const ItemList = () => {
   const [items, setItems] = useState([]);
   const [itemData, setItemData] = useState({});
-  const [isFetch, setIsfetch] = useFetchMyListings();
+  const { search } = useSearch();
+  const [data, setData] = useState([]);
   const changData = useCallback((para) => setItemData(para), []);
+
+
+  // useEffect(() => {
+  //   const fetchData = async (type, para) => {
+  //     const {searchResults, error} = search(type,para);
+  //     console.log(searchResults)
+  //     // setData(searchResults)
+  //   }
+
+  //   fetchData('category', 'Books')
+
+  // }, [])
   
-  console.log(isFetch)
-
-  useEffect(() => {
-    
-    Axios.get()
-    .then(res => {
-      setItems(res.data.product);
-
-    })
-    .catch(e => console.log(e));
-  }, []);
+  console.log(search('Books'))
 
 
   const sortLowToHigh = () => {

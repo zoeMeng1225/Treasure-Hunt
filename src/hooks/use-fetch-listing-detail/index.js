@@ -6,14 +6,18 @@ const useFetchListingDetail = () => {
 
   const fetchListingDetail = async (productId) => {
     // define the request
-    const url = `/listing?listing_id=${productId}`;
-    console.log("Fetch listing detail url created: ", url);
+    const url = '/api/listing';
+    console.log('Fetch listing detail url created: ', url);
 
     const returnObj = {};
 
     setIsFetching(true);
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        params: {
+          listing_id: productId,
+        },
+      });
       if (response.status === 200) {
         returnObj.fetchedListingDetail = response.data;
       }
@@ -25,7 +29,7 @@ const useFetchListingDetail = () => {
     }
   };
 
-  return { isFetching, fetchListingDetail};
+  return { isFetching, fetchListingDetail };
 };
 
 export default useFetchListingDetail;
