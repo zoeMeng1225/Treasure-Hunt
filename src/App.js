@@ -19,7 +19,7 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route path="/items" component={ItemList} />
         <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignUp} />
+        <Route path="/signup" component={Signup} />
         <Route exact path="/my-listings" component={MyListings} />
         <Route exact path="/saved-listings" component={SavedListings} />
         <Route path="/listing-detail" component={ListingDetail} />

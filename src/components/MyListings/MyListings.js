@@ -11,18 +11,18 @@ const { Header, Content } = Layout;
 
 const MyListings = () => {
   // listings stores listings data stored in db
-  const [myListings, setMyListings] = useState([]);
   const history = useHistory();
+  const [myListings, setMyListings] = useState([]);
   const { isFetching, fetchMyListings } = useFetchMyListings();
 
   const fetch = async () => {
     const { listings, error } = await fetchMyListings();
     if (error !== undefined) {
       if (error === 401) {
-        message.error(
-          error === 401 ? 'Invalid token' : 'Failed to get saved listings'
-        );
+        message.error('Please login');
         history.push('/login');
+      } else {
+        message.error('Failed to get my listings');
       }
     } else {
       setMyListings(listings);
