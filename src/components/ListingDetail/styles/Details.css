@@ -5,7 +5,8 @@
 .ant-divider {
   background-color: grey;
   font-size: large;
-  margin: 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .detail-text {
   font-size: 40px;
