@@ -5,24 +5,25 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { PICTURE_URL_PREFIX } from 'constants/constants';
 import './MyListings.style.css';
 import { useFetchMyListings, useLogin } from 'hooks';
+import { useHistory } from 'react-router';
 
 const { Header, Content } = Layout;
 
 const MyListings = () => {
   // listings stores listings data stored in db
   const [myListings, setMyListings] = useState([]);
-  const { isLoggingIn, login } = useLogin(); // For testing purposes, TODO remove
+  const history = useHistory();
   const { isFetching, fetchMyListings } = useFetchMyListings();
 
   const fetch = async () => {
     const { listings, error } = await fetchMyListings();
     if (error !== undefined) {
       if (error === 401) {
-        await login({ username: 'lichengrao7', password: 12345678 });
+        message.error(
+          error === 401 ? 'Invalid token' : 'Failed to get saved listings'
+        );
+        history.push('/login');
       }
-      message.error(
-        error === 401 ? 'Invalid token' : 'Failed to get saved listings'
-      );
     } else {
       setMyListings(listings);
     }
