@@ -7,7 +7,6 @@ const useFetchListingDetail = () => {
   const fetchListingDetail = async (productId) => {
     // define the request
     const url = '/api/listing';
-    console.log('Fetch listing detail url created: ', url);
 
     const returnObj = {};
 

@@ -4,27 +4,41 @@ import { useState } from 'react';
 const useSignup = () => {
   const [isSigningup, setIsSigningup] = useState(false);
 
-  const signup = async ({}) => {
-    setIsLoggingIn(true);
+  const signup = async ({
+    address_line_1,
+    city,
+    email,
+    first_name,
+    last_name,
+    password,
+    state,
+    username,
+    zipcode,
+  }) => {
+    setIsSigningup(true);
 
     try {
-      const response = await axios.post('/api/login', {
+      const response = await axios.post('/api/signup', {
+        email,
         user_id: username,
-        password: password,
+        password,
+        first_name,
+        last_name,
+        address: `${address_line_1}, ${city}, ${state} ${zipcode}`,
       });
 
-      if (response.status === 200) {
-        localStorage.setItem(TOKEN_KEY, response.data.token);
-        return response.data.name;
+      if (response.status === 201) {
+        return 201;
       }
     } catch (err) {
       console.log(err.message);
+      return err.response.status;
     } finally {
-      setIsLoggingIn(false);
+      setIsSigningup(false);
     }
   };
 
-  return { isLoggingIn, login };
+  return { isSigningup, signup };
 };
 
-export default useLogin;
+export default useSignup;

@@ -10,9 +10,10 @@
     flex-grow: 1;
     height: 100vh;
     overflow: scroll;
+    min-width: 700px;
 }
 
-@media screen and (min-width: 1475px) {
+@media screen {
     .sl_container .sl_photo {
         height: 100vh;
     }

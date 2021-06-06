@@ -35,6 +35,10 @@
     filter: invert(100%) sepia(53%) saturate(1801%) hue-rotate(180deg) brightness(109%) contrast(109%);
 }
 
+#logo:hover{
+    cursor: pointer;
+}
+
 @media screen and (min-device-width: 799px) and (max-device-width: 1475px) { 
     #signup-view .su_form {
         width: 80%;
