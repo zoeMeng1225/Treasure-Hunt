@@ -14,6 +14,7 @@ const MyListings = () => {
   const { isLoggingIn, login } = useLogin(); // For testing purposes, TODO remove
   const { isFetching, fetchMyListings } = useFetchMyListings();
 
+  
   const fetch = async () => {
     const { listings, error } = await fetchMyListings();
     if (error !== undefined) {

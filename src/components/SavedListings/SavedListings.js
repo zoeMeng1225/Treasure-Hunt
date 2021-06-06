@@ -4,7 +4,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import { PICTURE_URL_PREFIX } from '../../constants/constants';
 import './SavedListings.style.css';
-import { useLogin, useFetchSavedListings } from '../../hooks/index';
+import { useLogin, useFetchSavedListings } from 'hooks';
 
 const { Header, Content } = Layout;
 const { Meta } = Card;

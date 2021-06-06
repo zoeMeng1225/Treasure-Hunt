@@ -6,7 +6,7 @@ import GoogleMap  from './Map/GoogleMap';
 import Axios from 'axios';
 import Moment from 'moment';
 
-import { useFetchMyListings } from '../../hooks/index';
+import { useSearch } from 'hooks';
 import "./ItemList.style.css";
 import { FilterOutlined, OrderedListOutlined } from "@ant-design/icons";
 
@@ -26,10 +26,10 @@ const filterMenu = (
 const ItemList = () => {
   const [items, setItems] = useState([]);
   const [itemData, setItemData] = useState({});
-
+  const [isFetch, setIsfetch] = useFetchMyListings();
   const changData = useCallback((para) => setItemData(para), []);
   
-  // console.log(useFetchMyListings)
+  console.log(isFetch)
 
   useEffect(() => {
     
