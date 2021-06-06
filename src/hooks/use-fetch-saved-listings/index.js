@@ -7,7 +7,7 @@ const useFetchSavedListings = () => {
 
   const fetchSavedListings = async () => {
     // define the request
-    const url = `/saved-listings`;
+    const url = `/api/saved-listings`;
     const opt = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
