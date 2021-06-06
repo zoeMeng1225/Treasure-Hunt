@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { TOKEN_KEY } from '../../constants/constants';
+import { TOKEN_KEY } from 'constants/constants';
 
 const useFetchMyListings = () => {
   const [isFetching, setIsFetching] = useState(false);
 
   const fetchMyListings = async () => {
     // define the request
-    const url = `/my-listings`;
+    const url = `/api/my-listings`;
     const opt = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
