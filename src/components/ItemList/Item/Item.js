@@ -5,6 +5,7 @@ const {Meta} = Card;
 
 
 const Item = (props) => {
+  console.log(props)
   const {Products, changeData} = props;
   return(
     <Row>

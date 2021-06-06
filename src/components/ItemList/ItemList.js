@@ -4,6 +4,7 @@ import Item from './Item/Item';
 import GoogleMap  from './Map/GoogleMap';
 import Axios from 'axios';
 import Moment from 'moment';
+import { BASE_URL } from '../../constants/constants';
 
 import './ItemList.style.css';
 import { FilterOutlined , OrderedListOutlined } from '@ant-design/icons';
@@ -30,13 +31,12 @@ const ItemList = () => {
   
 
   useEffect(() => {
-    Axios.get('https://mocki.io/v1/309b90ed-ae4d-4ac5-9636-1e89777c8644')
+    Axios.get(`${BASE_URL}search?category=Electronics`)
     .then(res => {
       setItems(res.data.product);
     })
     .catch(e => console.log(e));
   }, []);
-
 
 
   const sortLowToHigh = () => {
