@@ -16,24 +16,17 @@ const Overview = (props) => {
 
   const [isSave, setIsSave] = useState(false);
   const [isLogIn, setIsLogIn] = useState(false);
-  const [isSeller, setIsSeller] = useState(false);
+  const [isSeller, setIsSeller] = useState(true);
 
-  const testMode = true;
-  const test = () => {
-    setIsSeller(false); //check if user is seller
-    setIsSave(false); //check if this is saved by buyer
-    setIsLogIn(true); //check if user is login
-  };
 
-  const url = useEffect(() => {
+
+useEffect(() => {
     initState();
-    if (testMode) {
-      test();
-    }
   }, []);
 
   const initState = () => {
     //TODO: init isSave isLogIn isSeller
+    
     if (sellerId === userId) {
       setIsSeller(true);
     } else {
@@ -48,7 +41,8 @@ const Overview = (props) => {
   const checkInSaveListing = async () => {
     const { listings, error } = await fetchMyListings();
     if (error !== undefined) {
-      message.error(`${pageName}Failed to get saved listings`);
+      console.log(`${pageName}Failed to get user saved listings`);
+      message.error(`${pageName}Failed to get user saved listings`);
     } else {
       for (const item in listings) {
         if (listingId == item.listing_id) {
@@ -99,7 +93,7 @@ const Overview = (props) => {
             </div>
           </Row>
         </Col>
-        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={8} className="btn">
+        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={8} className="btn" align="right">
           {isSeller === false ? ( //isSeller for testing
             <Button
               size="large"
@@ -114,7 +108,7 @@ const Overview = (props) => {
               onClick={onSaveClick}
             />
           ) : (
-            <Button onClick={onEditClick}>Edit</Button>
+            <Button  className="edit" onClick={onEditClick}>Edit</Button>
           )}
         </Col>
       </Row>

@@ -4,7 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import '../styles/SellerInfo.css';
 
 const SellerInfo = (props) => {
-  const { sellerName, address } = props;
+  const { sellerName, address, sellerEmail } = props;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => {
@@ -53,7 +53,7 @@ const SellerInfo = (props) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p> johndoe@gmail.com</p>
+        <p> {sellerEmail}</p>
       </Modal>
     </Row>
   );
