@@ -5,6 +5,7 @@ const useDeleteListing = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteListing = async (userId, listingId) => {
+    const url = `/api/listing`;
     const returnObj = {};
     setIsDeleting(true);
 

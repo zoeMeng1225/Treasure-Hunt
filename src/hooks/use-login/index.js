@@ -13,6 +13,7 @@ const useLogin = () => {
         user_id: username,
         password: password,
       });
+
       if (response.status === 200) {
         localStorage.setItem(TOKEN_KEY, response.data.token);
         return response.data.name;

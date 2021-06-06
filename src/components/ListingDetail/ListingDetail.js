@@ -17,7 +17,7 @@ const ListingDetail = (props) => {
 
   //TODO: product_id and userID is passed from pervious page
   const testMode = true; //use fake data when is true
-  const productId = '1622614549717';
+  const productId = '1622754560957';
   const userID = 'lichengrao3';
   const fakeData = {
     listing_id: '1622614549717',
@@ -48,6 +48,7 @@ const ListingDetail = (props) => {
     if (error !== undefined) {
       message.error('Fetch listing detail failed');
     } else {
+      console.log(fetchedListingDetail);
       setListingDetail(fetchedListingDetail);
     }
   };
