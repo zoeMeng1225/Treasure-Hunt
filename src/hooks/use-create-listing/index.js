@@ -11,10 +11,10 @@ import { useState } from 'react';
 const useCreateListing = () => {
   const [isCreating, setIsCreating] = useState(false);
 
-  const Creating = async (parameters) => {
+  const createListing = async (parameters) => {
 
     // define the request
-    const url = `/listing`;
+    const url = `/api/listing`;
 
     const formData = new FormData();
     formData.append('id', 1);
@@ -34,7 +34,7 @@ const useCreateListing = () => {
         returnObj.ListingId = response.data;
       }
     } catch (err) {
-      returnObj.error = err.response.status;
+      returnObj.error = err;
     } finally {
       setIsCreating(false);
       return returnObj;
