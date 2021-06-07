@@ -40,25 +40,33 @@ const normFile = (e) => {
 const { TextArea } = Input;
 
 const EditListing = ({ id }) => {
-  const [listing, setListing] = useState({});
-  const { category, title, price, brand, upload, condition, description } = listing;
-
+  const [form] = Form.useForm();
 
   function onChange(value) {
     console.log('changed', value);
   }
 
+  // prefill the form with the data fetched from api
   useEffect(() => {
     console.log("fetching data");
-    axios.get('/listing', {
+    axios.get('/api/listing', {
       params: {
-        listing_id: '1622754560957',
+        listing_id: {id}.id,
       }
     })
       .then((res) => {
         console.log("fetched data")
         console.log(res);
-        setListing(res.data);
+        form.setFieldsValue(res.data);
+
+        var picture_display_div = document.getElementById("picture_display");
+        console.log("test: " + picture_display_div);
+        picture_display_div.innerHtml = "";
+        for (var key in res.data.picture_urls) {
+          var picture_url = /*picture_url_prefix + */ res.data.picture_urls[key];
+          //var picture_url = "http://localhost:3000/static/media/Electronics3.503d03f4.jpg";
+          picture_display_div.innerHTML = '<img src="' + picture_url + '"/><br/>';
+        }
       })
       .catch((e) => console.log(e));
   }, []);
@@ -69,18 +77,20 @@ const EditListing = ({ id }) => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
 
-    const { category, title, price, brand, upload, condition, description } = values;
+    const { category, title, price, brand, upload, item_condition, description } = values;
 
     const formData = new FormData();
     formData.append("seller_user_id", "lichengrao3");
     formData.append("title", title);
     formData.append("category", category);
     formData.append("brand", brand);
-    formData.append("item_condition", condition);
+    formData.append("item_condition", item_condition);
     formData.append("description", description);
     formData.append("price", price);
-    formData.append("picture_1", upload[0].originFileObj);
-    formData.append("picture_2", upload[1].originFileObj);
+    for (var i = 0; i < upload.length; ++i) {
+      var key = "picture_" + (i + 1);
+      formData.append(key, upload[i].originFileObj);
+    }
 
     console.log(formData.toString());
 
@@ -105,13 +115,14 @@ const EditListing = ({ id }) => {
   };
 
 
+
   return (
-    <div>{listing.title}
+    <div>
       <Form
+        form = {form}
         name="validate_other"
         {...formItemLayout}
         onFinish={onFinish}
-        initialValues={{ title: 'listing.title', price: '100', brand: 'btw' }}
         className="form-box"
       >
 
@@ -205,8 +216,11 @@ const EditListing = ({ id }) => {
           </Upload>
         </Form.Item>
 
+        <div id="picture_display">
+        </div>
+
         <Form.Item
-          name="condition"
+          name="item_condition"
           label="CONDITION"
           rules={[
             {
@@ -225,7 +239,7 @@ const EditListing = ({ id }) => {
 
 
 
-        <Form.Item name="desctiption" label="DESCRIPTION">
+        <Form.Item name="description" label="DESCRIPTION">
           <TextArea rows={4} className="textarea-input" />
         </Form.Item>
 
