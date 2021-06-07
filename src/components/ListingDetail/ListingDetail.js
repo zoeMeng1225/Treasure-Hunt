@@ -29,8 +29,34 @@ const ListingDetail = () => {
     }
   };
 
+  data = {
+    listing_id: '1622787358818',
+    title: "Chan's Computer",
+    price: 1499.99,
+    category: 'Electronics',
+    seller_id: 'lichengrao3',
+    seller_name: 'Chan Rao',
+    seller_email: 'lichengrao@gmail.com',
+    description: 'This is a Cannondale CAAD 10 from 2014 ',
+    item_condition: 'Like New',
+    brand: 'Apple',
+    address: '2922 Northern Blvd #2104, Long Island City, NY 11101, USA',
+    picture_urls: {
+      '1622787358818Capture001.png':
+        '1622787358818Capture001.png?generation=1622787359391920&alt=media',
+      '1622787359406Capture001.png':
+        '1622787359406Capture001.png?generation=1622787359764777&alt=media',
+    },
+    date: '2021-06-04T06:15:59.824Z',
+    geo_location: {
+      lat: 40.7493004,
+      lon: -73.9364811,
+    },
+    city_and_state: 'Long Island City, NY',
+  };
   useEffect(() => {
-    fetch();
+    //fetch();
+    setListingDetail(data);
   }, []);
 
   const history = useHistory();
