@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { Row, Col, Button, message } from 'antd';
-import { StarOutlined, StarFilled, EditFilled } from '@ant-design/icons';
+import {
+  StarOutlined,
+  StarFilled,
+  EditFilled,
+  DeleteFilled,
+} from '@ant-design/icons';
 import {
   useSaveListing,
   useUnsaveListing,
-  useFetchMyListings,
+  useFetchSavedListings,
   useDeleteListing,
 } from 'hooks';
 import '../styles/Overview.css';
 import { useHistory } from 'react-router';
 import { checkValidToken } from 'utils';
+
+import { TOKEN_KEY } from 'constants/constants';
+import { Loading } from 'components';
 
 const Overview = (props) => {
   const pageName = 'Listing Detail Page: Overview: ';
@@ -23,13 +31,14 @@ const Overview = (props) => {
 
   const { isSaving, saveListing } = useSaveListing();
   const { isUnsaving, unsaveListing } = useUnsaveListing();
-  const { isFetching, fetchMyListings } = useFetchMyListings();
+  const { isFetching, fetchSavedListings } = useFetchSavedListings();
   const { isDeleting, deleteListing } = useDeleteListing();
 
   const [isSave, setIsSave] = useState(false);
   const [isLogIn, setIsLogIn] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setUserId(checkValidToken());
@@ -40,6 +49,10 @@ const Overview = (props) => {
       setIsSeller(false);
     }
   });
+
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 1500);
+  }, []);
 
   useEffect(() => {
     checkIsSeller();
@@ -69,7 +82,7 @@ const Overview = (props) => {
       return;
     }
     console.log(`${pageName}Fetching My Listings`);
-    const { listings, error } = await fetchMyListings();
+    const { listings, error } = await fetchSavedListings();
     if (error !== undefined) {
       console.log(`${pageName}Failed to get user saved listings`);
       message.error(`${pageName}Failed to get user saved listings`);
@@ -96,7 +109,10 @@ const Overview = (props) => {
   };
 
   const save = async () => {
-    const { error } = await saveListing(checkValidToken(), listingId);
+    const { error } = await saveListing({
+      userId: checkValidToken(),
+      listingId,
+    });
     if (error !== undefined) {
       message.error(`Save listing failed`);
     } else {
@@ -119,21 +135,27 @@ const Overview = (props) => {
     history.push(`/edit/${listingId}`);
   };
 
-  const onDeleteClick = () => {
-    //TODO: delete listing and route to pervious page
+  const onDeleteClick = async () => {
+    //TODO: delete listing and route to previous page
     console.log(`${pageName}Delete btn clicked`);
-    deleteListing(userId, listingId);
+    const { error } = await deleteListing(userId, listingId);
     if (error !== undefined) {
       message.error(`Delete listing failed`);
+    } else {
+      message.success(`Delete successful`);
+      history.replace('/my-listings');
     }
-
-    history.goBack();
   };
+
+  const priceFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
 
   return (
     <div>
       <Row>
-        <Row className="catergries">Catergries / {listingInfo.category}</Row>
+        <Row className="catergries">Category : {listingInfo.category}</Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xl={24} xxl={16}>
           <Row className="product-name">{listingInfo.title}</Row>
           <Row className="date-location">
@@ -169,6 +191,8 @@ const Overview = (props) => {
                 icon={<DeleteFilled />}
               />
             </div>
+          ) : isLoading || isFetching ? (
+            <Loading />
           ) : (
             <Button
               size="large"
@@ -186,7 +210,7 @@ const Overview = (props) => {
         </Col>
       </Row>
       <Row className="price">
-        <div>${listingInfo.price}</div>
+        <div>{priceFormatter.format(listingInfo.price)}</div>
       </Row>
     </div>
   );

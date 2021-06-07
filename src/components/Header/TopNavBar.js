@@ -14,7 +14,7 @@ function TopNavBar(props) {
   return (
     <Header className="Top-nav-bar">
       {/*TODO: cannot change text color (unlike for sub nav bar). Would <Link to="/savedItems"> vs. <NavLink vs. <a href make a difference in customizing the menu item theme? */}
-      <Row justify="end" align="stretch">
+      <Row align="bottom">
         <Col xs={22} sm={20} md={18} lg={16} xl={14}>
           <LeftMenu />
         </Col>

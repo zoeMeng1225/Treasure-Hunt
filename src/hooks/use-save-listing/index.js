@@ -8,20 +8,23 @@ const useSaveListing = () => {
 
   const saveListing = async ({ userId, listingId }) => {
     const url = `/api/save`;
-    const opt = {
+    const headers = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
       },
-      data: {
-        user_id: userId,
-        listing_id: listingId,
-      },
+    };
+
+    const data = {
+      user_id: userId,
+      listing_id: listingId,
     };
 
     const returnObj = {};
     setIsSaving(true);
     try {
-      const response = await axios.post(url, opt);
+      console.log(data);
+      console.log(headers);
+      const response = await axios.post(url, data, headers);
       if (response.status === 200) {
         console.log('Save listing successful');
       }
