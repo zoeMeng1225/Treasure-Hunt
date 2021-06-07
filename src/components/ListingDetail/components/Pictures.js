@@ -12,7 +12,7 @@ const Pictures = (props) => {
     <div>
       <Carousel
         className="carousel"
-        autoplay
+        //autoplay
         // arrows
         // nextArrow={<ArrowRightOutlined />}
         // prevArrow={<ArrowLeftOutlined />}
@@ -22,7 +22,7 @@ const Pictures = (props) => {
           console.log(
             `${pageName}Getting picture from : ${PICTURE_URL_PREFIX}${url}`
           );
-          return <img src={`${PICTURE_URL_PREFIX}${url}`} />;
+          return <img  height={500} src={`${PICTURE_URL_PREFIX}${url}`} />;
         })}
       </Carousel>
     </div>
