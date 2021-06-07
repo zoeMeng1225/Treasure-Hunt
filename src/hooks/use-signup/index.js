@@ -39,7 +39,6 @@ const useSignup = () => {
   };
 
   return { isSigningup, signup };
-
 };
 
 export default useSignup;
