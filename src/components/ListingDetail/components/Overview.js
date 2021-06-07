@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { Row, Col, Button, message } from 'antd';
 import { StarOutlined, StarFilled, EditFilled } from '@ant-design/icons';
-import { useSaveListing } from 'hooks';
-import { useUnsaveListing } from 'hooks';
-import { useFetchMyListings } from 'hooks';
+import {
+  useSaveListing,
+  useUnsaveListing,
+  useFetchMyListings,
+  useDeleteListing,
+} from 'hooks';
 import '../styles/Overview.css';
 import { useHistory } from 'react-router';
 import { checkValidToken } from 'utils';
@@ -21,6 +24,7 @@ const Overview = (props) => {
   const { isSaving, saveListing } = useSaveListing();
   const { isUnsaving, unsaveListing } = useUnsaveListing();
   const { isFetching, fetchMyListings } = useFetchMyListings();
+  const { isDeleting, deleteListing } = useDeleteListing();
 
   const [isSave, setIsSave] = useState(false);
   const [isLogIn, setIsLogIn] = useState(false);
@@ -92,7 +96,7 @@ const Overview = (props) => {
   };
 
   const save = async () => {
-    const { error } = saveListing(checkValidToken(), listingId);
+    const { error } = await saveListing(checkValidToken(), listingId);
     if (error !== undefined) {
       message.error(`Save listing failed`);
     } else {
@@ -100,7 +104,7 @@ const Overview = (props) => {
     }
   };
   const unsave = async () => {
-    const { error } = unsaveListing(checkValidToken(), listingId);
+    const { error } = await unsaveListing(checkValidToken(), listingId);
     if (error !== undefined) {
       message.error(`Unsave listing failed`);
     } else {
@@ -112,11 +116,18 @@ const Overview = (props) => {
   const onEditClick = () => {
     console.log(`${pageName}Edit btn clicked`);
     console.log(`${pageName}Go to edit listing page`);
+    history.push(`/edit/${listingId}`);
   };
 
   const onDeleteClick = () => {
     //TODO: delete listing and route to pervious page
     console.log(`${pageName}Delete btn clicked`);
+    deleteListing(userId, listingId);
+    if (error !== undefined) {
+      message.error(`Delete listing failed`);
+    }
+
+    history.goBack();
   };
 
   return (
