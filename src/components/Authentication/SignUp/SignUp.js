@@ -1,49 +1,42 @@
 import React from 'react';
 
-import { Col, Row } from 'antd';
+import { Col, message, Row } from 'antd';
 import { Form, Input, Button } from 'antd';
 import Logo from 'assets/logos/th_logo.svg';
 
 import SplitLayout from '../SplitLayout/SplitLayout';
 import SignUpPhoto from 'assets/images/signup_img.jpg';
-
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useSignup } from 'hooks';
 
 const SignUp = () => {
-  const onFinish = (userData) => {
-    console.log(userData);
-    // const opt = {
-    //     method:"POST",
-    //     url: "/signup",
-    //     data:{
-    //         email: userData["student-email"],
-    //         user_id: userData["student-email"],
-    //         password: userData.password,
-    //         //first_name: userData.first_name,
-    //         //
-    //     },
-    //     headers: {"Content-Type": "application/json"}
-    // };
-    // axios(opt)
-    //     .then((res) => {
-    //         if (res.status == 200){
-    //             const {data} = res;
-    //             //redirect to Home Page
-    //         }
-    //     })
-    //     .catch((err) => {
-    //         console.log("login failed: ", err.message);
-    //         //send an error message
-    //     });
+  const { isSigningup, signup } = useSignup();
+  const history = useHistory();
+
+  const onFinish = async (userData) => {
+    const response = await signup(userData);
+
+    if (response === 201) {
+      message.success('Successfully signed up, please login');
+      history.replace('/login');
+    } else if (response === 409) {
+      message.error(`Username ${userData.username} already taken`);
+    } else {
+      message.error('Failed to create new account, please try again');
+    }
   };
 
   const onFinishFailed = () => {
     console.log('failed');
   };
 
+  const goToHome = () => {
+    history.push('/');
+  };
+
   return (
     <div id="signup-view">
-      <img id="logo" src={Logo} />
+      <img id="logo" src={Logo} onClick={goToHome} />
       <SplitLayout src={SignUpPhoto} content="right">
         <Row className="su_form-container" justify="center" align="middle">
           <div className="su_form">
@@ -136,7 +129,7 @@ const SignUp = () => {
                   <Form.Item
                     className="su_form-item"
                     label="First Name"
-                    name="first-name"
+                    name="first_name"
                     rules={[
                       { required: true, message: 'First Name is required' },
                     ]}
@@ -148,7 +141,7 @@ const SignUp = () => {
                   <Form.Item
                     className="su_form-item"
                     label="Last Name"
-                    name="last-name"
+                    name="last_name"
                     rules={[
                       { required: true, message: 'Last Name is required' },
                     ]}
@@ -161,7 +154,7 @@ const SignUp = () => {
               <Form.Item
                 className="su_form-item"
                 label="Address Line"
-                name="address-line-1"
+                name="address_line_1"
                 rules={[{ required: true, message: 'Address is required' }]}
               >
                 <Input placeholder="Address Line" />
@@ -203,14 +196,21 @@ const SignUp = () => {
               </Row>
 
               <Form.Item>
-                <Button id="signup-button" block htmlType="submit">
-                  Sign up
+                <Button
+                  disabled={isSigningup}
+                  id="signup-button"
+                  block
+                  htmlType="submit"
+                >
+                  {`${isSigningup ? 'Signing' : 'Sign'} up`}
                 </Button>
               </Form.Item>
 
               <div>
                 <span>Already have an Account? </span>
-                <Link to="/login">Login</Link>
+                <Link to="/login" replace>
+                  Login
+                </Link>
               </div>
             </Form>
           </div>

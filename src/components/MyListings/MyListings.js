@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, List, Space, Spin, message } from 'antd';
+import { Affix, Layout, List, Space, Spin, message } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import { PICTURE_URL_PREFIX } from 'constants/constants';
 import './MyListings.style.css';
 import { useFetchMyListings, useLogin } from 'hooks';
 import { useHistory } from 'react-router';
+import TopNavBar from 'components/Header/TopNavBar';
 
 const { Header, Content } = Layout;
 
@@ -49,7 +50,9 @@ const MyListings = () => {
   return (
     <div className="my-listings-page">
       <Layout>
-        <Header>Header</Header>
+        <Affix offsetTop={0} className="app__affix-header">
+          <TopNavBar />
+        </Affix>
         <Content className="my-listings-content">
           {isFetching ? (
             <Spin
@@ -85,6 +88,9 @@ const MyListings = () => {
               }
               renderItem={(item) => (
                 <List.Item
+                  onClick={() =>
+                    history.push(`/listing-detail/${item.listing_id}`)
+                  }
                   className="list-item"
                   key={item.listing_id}
                   actions={[

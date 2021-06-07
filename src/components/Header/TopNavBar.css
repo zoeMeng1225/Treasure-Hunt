@@ -25,8 +25,8 @@
     margin: 0px;
 }
 
-.ant-menu-overflow-item:hover, .ant-menu-overflow-submenu:hover, .ant-menu-overflow-item-active, .ant-menu-overflow-submenu-active, .ant-menu-overflow-item-open, .ant-menu-overflow-submenu-open, .ant-menu-overflow-item-selected, .ant-menu-overflow-submenu-selected{
+/* .ant-menu-overflow-item:hover, .ant-menu-overflow-submenu:hover, .ant-menu-overflow-item-active, .ant-menu-overflow-submenu-active, .ant-menu-overflow-item-open, .ant-menu-overflow-submenu-open, .ant-menu-overflow-item-selected, .ant-menu-overflow-submenu-selected{
     color:#ff8300;
     border-bottom: 2px solid #ff8300;
-}
+} */
 

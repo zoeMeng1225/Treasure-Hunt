@@ -1,52 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { Row, Col, Button, message } from 'antd';
-import { StarOutlined, StarFilled } from '@ant-design/icons';
+import { StarOutlined, StarFilled, FastForwardFilled } from '@ant-design/icons';
 import { useSaveListing } from 'hooks';
 import { useFetchMyListings } from 'hooks';
 import { TOKEN_KEY } from '../../../constants/constants';
 import '../styles/Overview.css';
 import jwt_decode from 'jwt-decode';
+import { useHistory } from 'react-router';
 
 const Overview = (props) => {
   const pageName = 'Listing Detail Page: Overview: ';
   const { listingInfo } = props;
 
+  const history = useHistory();
+
   const listingId = listingInfo.listing_id;
   const sellerId = listingInfo.seller_id;
-  console.log('init listingInfo: ', listingInfo);
-  console.log('init seller id: ', sellerId);
 
   const { isSaving, saveListing } = useSaveListing();
   const { isFetching, fetchMyListings } = useFetchMyListings();
 
   const [isSave, setIsSave] = useState(false);
   const [isLogIn, setIsLogIn] = useState(false);
-  const [isSeller, setIsSeller] = useState(true);
+  const [isSeller, setIsSeller] = useState(false);
+  const [decodedToken, setDecodedToken] = useState(undefined);
 
-  //const token = localStorage.getItem(TOKEN_KEY);
-  const token =
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaXVzaGFuZzEiLCJhdWQiOiJ2aWRlbyBkZW1vIiwiZW1haWwiOiJuaXVzaGFuZzFAZ21haWwuY29tIiwiaWF0IjoxNjIyOTg4MDg3LCJleHAiOjE2MjI5OTE2ODd9.iyFC9gvUTU2X31gS6aK59HCNvMzCXp9Dn5djbmU1n5U';
-  const decodedToken = jwt_decode(token);
-  const userId = decodedToken.sub;
-  console.log('init  userId: ', userId);
   useEffect(() => {
-    initState();
+    checkInSaveListing();
   }, []);
 
-  const initState = () => {
-    checkInSaveListing();
+  useEffect(() => {
+    checkIsSeller();
+  }, [isSeller]);
+
+  const checkIsSeller = () => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token !== null) {
+      console.log(token);
+      console.log('Trying to decode token');
+      const decoded = jwt_decode(token);
+      setDecodedToken(decoded);
+      const userId = decoded.sub;
+      if (userId === sellerId) {
+        setIsSeller(true);
+      }
+    }
   };
 
   // fetch save listings and check if current listing/item is in fetched listings
   const checkInSaveListing = async () => {
+    if (decodedToken === undefined) {
+      return;
+    }
     const { listings, error } = await fetchMyListings();
     if (error !== undefined) {
       console.log(`${pageName}Failed to get user saved listings`);
       message.error(`${pageName}Failed to get user saved listings`);
     } else {
       for (const item in listings) {
-        if (listingId == item.listing_id) {
+        if (listingId === item.listing_id) {
           setIsSave(true);
         }
       }
@@ -54,14 +67,17 @@ const Overview = (props) => {
   };
 
   //TODO: link to login page
-  const onSaveClick = () => {
-    console.log('Save btn clicked');
-    if (!isLogIn) {
-      //TODO: link to login page
-      console.log(`${pageName}Buyer save without login. Go to login page`);
+  const onSaveClick = async () => {
+    // check if token is still valid
+    const tokenStillValid =
+      decodedToken !== undefined && decodedToken.exp * 1000 >= Date.now();
+    if (!tokenStillValid) {
+      localStorage.removeItem(TOKEN_KEY);
+      history.push('/login');
+    } else if (isSave) {
+      await save(false);
     } else {
-      save(!isSave);
-      console.log(`${pageName}negate save star`);
+      await save(true);
     }
   };
 
@@ -108,7 +124,7 @@ const Overview = (props) => {
           className="btn"
           align="right"
         >
-          {sellerId === decodedToken.sub ? (
+          {isSeller ? (
             <Button className="edit" onClick={onEditClick}>
               Edit
             </Button>

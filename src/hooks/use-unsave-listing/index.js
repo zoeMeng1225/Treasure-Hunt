@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { TOKEN_KEY } from 'constants/constants';
 
 // SAVE listing
-const useSaveListing = () => {
-  const [isSaving, setIsSaving] = useState(false);
+const useUnsaveListing = () => {
+  const [isUnsaving, setIsUnsaving] = useState(false);
 
-  const saveListing = async ({ userId, listingId }) => {
+  const unsaveListing = async ({ userId, listingId }) => {
     const url = `/api/save`;
     const opt = {
       headers: {
@@ -19,20 +19,20 @@ const useSaveListing = () => {
     };
 
     const returnObj = {};
-    setIsSaving(true);
+    setIsUnsaving(true);
     try {
-      const response = await axios.post(url, opt);
+      const response = await axios.delete(url, opt);
       if (response.status === 200) {
         console.log('Save listing successful');
       }
     } catch (err) {
       returnObj.error = err.response.status;
     } finally {
-      setIsSaving(false);
+      setIsUnsaving(false);
       return returnObj;
     }
   };
-  return { isSaving, saveListing };
+  return { isUnsaving, unsaveListing };
 };
 
-export default useSaveListing;
+export default useUnsaveListing;
