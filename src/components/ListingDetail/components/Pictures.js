@@ -1,5 +1,5 @@
 import React from 'react';
-import { Carousel } from 'antd';
+import { Carousel, Image } from 'antd';
 //import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { PICTURE_URL_PREFIX } from 'constants/constants';
 import '../styles/Pictures.css';
@@ -12,7 +12,7 @@ const Pictures = (props) => {
     <div>
       <Carousel
         className="carousel"
-        autoplay
+        //autoplay
         // arrows
         // nextArrow={<ArrowRightOutlined />}
         // prevArrow={<ArrowLeftOutlined />}
@@ -22,7 +22,7 @@ const Pictures = (props) => {
           console.log(
             `${pageName}Getting picture from : ${PICTURE_URL_PREFIX}${url}`
           );
-          return <img src={`${PICTURE_URL_PREFIX}${url}`} />;
+          return <Image height={500} src={`${PICTURE_URL_PREFIX}${url}`} />;
         })}
       </Carousel>
     </div>

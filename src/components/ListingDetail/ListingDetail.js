@@ -55,13 +55,14 @@ const ListingDetail = () => {
             />
           ) : (
             <Col span={20} offset={2}>
-              <Row
-                span={24}
-                onClick={() => {
-                  history.goBack();
-                }}
-              >
-                <Button className="back-btn" icon={<ArrowLeftOutlined />}>
+              <Row span={24}>
+                <Button
+                  className="back-btn"
+                  icon={<ArrowLeftOutlined />}
+                  onClick={() => {
+                    history.goBack();
+                  }}
+                >
                   Back
                 </Button>
               </Row>
