@@ -7,7 +7,7 @@ import MyListings from './components/MyListings/MyListings';
 import SavedListings from './components/SavedListings/SavedListings';
 
 import Login from 'components/Authentication/Login/Login';
-import Signup from 'components/Authentication/Signup/Signup';
+import SignUp from 'components/Authentication/Signup/SignUp';
 import ListingDetail from './components/ListingDetail/ListingDetail';
 
 import './App.css';
@@ -21,7 +21,7 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route path="/items" component={ItemList} />
         <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route path="/signup" component={SignUp} />
         <Route path="/sell" component={CreateListingInfo} />
         <Route path="/edit/:listing_id" component={EditListingInfo} />
         <Route exact path="/my-listings/" component={MyListings} />
