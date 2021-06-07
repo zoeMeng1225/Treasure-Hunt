@@ -30,6 +30,7 @@ const useSignup = () => {
       if (response.status === 200) {
         localStorage.setItem(TOKEN_KEY, response.data.token);
         return response.data.name;
+        console.log("Successfully signed up!");
       }
     } catch (err) {
       console.log(err.message);
