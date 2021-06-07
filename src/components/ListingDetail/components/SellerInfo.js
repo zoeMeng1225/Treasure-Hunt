@@ -4,7 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import '../styles/SellerInfo.css';
 
 const SellerInfo = (props) => {
-  const { sellerName, address } = props;
+  const { sellerName, address, sellerEmail } = props;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => {
@@ -19,6 +19,16 @@ const SellerInfo = (props) => {
     setIsModalVisible(false);
   };
 
+  const getSellerInitials = (sellerName) => {
+    return (
+      sellerName !== undefined &&
+      sellerName
+        .split(' ')
+        .map((name) => name[0])
+        .join('')
+    );
+  };
+
   return (
     <Row span={24} className="seller-section ">
       <Row span={24} className="header">
@@ -27,7 +37,9 @@ const SellerInfo = (props) => {
       <Divider />
       <Row span={24} className="seller-info">
         <Col span={4} className="avatar">
-          <Avatar size={64} icon={<UserOutlined />} />
+          <Avatar style={{ backgroundColor: '#f56a00' }}>
+            {getSellerInitials(sellerName)}
+          </Avatar>
         </Col>
         <Col span={20}>
           <Row span={24}>
@@ -53,7 +65,7 @@ const SellerInfo = (props) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p> johndoe@gmail.com</p>
+        <p> {sellerEmail}</p>
       </Modal>
     </Row>
   );

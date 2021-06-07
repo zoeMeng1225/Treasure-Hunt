@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, List, Space, Spin, message } from 'antd';
+import { Affix, Layout, List, Space, Spin, message } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import { PICTURE_URL_PREFIX } from 'constants/constants';
 import './MyListings.style.css';
 import { useFetchMyListings, useLogin } from 'hooks';
 import { useHistory } from 'react-router';
+import TopNavBar from 'components/Header/TopNavBar';
+import AppFooter from 'components/Footer/AppFooter';
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 const MyListings = () => {
   // listings stores listings data stored in db
@@ -48,8 +50,10 @@ const MyListings = () => {
 
   return (
     <div className="my-listings-page">
-      <Layout>
-        <Header>Header</Header>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Affix offsetTop={0} className="app__affix-header">
+          <TopNavBar />
+        </Affix>
         <Content className="my-listings-content">
           {isFetching ? (
             <Spin
@@ -78,13 +82,11 @@ const MyListings = () => {
                 pageSize: 5,
               }}
               dataSource={myListings.reverse()} // Sorted by recency
-              footer={
-                <div>
-                  <b>Treasure Hunt</b> footer part
-                </div>
-              }
               renderItem={(item) => (
                 <List.Item
+                  onClick={() =>
+                    history.push(`/listing-detail/${item.listing_id}`)
+                  }
                   className="list-item"
                   key={item.listing_id}
                   actions={[
@@ -101,7 +103,7 @@ const MyListings = () => {
                   ]}
                   extra={
                     <img
-                      width={272}
+                      height={180}
                       alt="logo"
                       src={getPictureUrl(item.picture_urls)}
                     />
@@ -116,6 +118,10 @@ const MyListings = () => {
             />
           )}
         </Content>
+
+        <Footer>
+          <AppFooter />
+        </Footer>
       </Layout>
     </div>
   );
