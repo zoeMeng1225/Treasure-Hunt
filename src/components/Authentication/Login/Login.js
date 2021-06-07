@@ -1,17 +1,15 @@
 import React from 'react';
 import { Button, Form, Input, message, Row } from 'antd';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import Logo from 'assets/logos/th_logo.svg';
 import SplitLayout from '../SplitLayout/SplitLayout.js';
 import LoginPhoto from 'assets/images/login_img.jpg';
 import { useLogin } from 'hooks';
-import axios from 'axios';
 
 const Login = () => {
   const { isLoggingIn, login } = useLogin();
   const history = useHistory();
-  const location = useLocation();
 
   const onFinish = async (userData) => {
     const name = await login({
@@ -31,9 +29,13 @@ const Login = () => {
     console.log('failed');
   };
 
+  const goToHome = () => {
+    history.push('/');
+  };
+
   return (
     <div id="login-view">
-      <img id="logo" src={Logo} />
+      <img id="logo" src={Logo} onClick={goToHome} />
       <SplitLayout src={LoginPhoto} content="left">
         <Row className="lv_form-container" justify="center" align="middle">
           <div className="lv_form">
@@ -78,7 +80,9 @@ const Login = () => {
 
               <div>
                 <span>Not registered yet? </span>
-                <Link to="/signup">Create an Account</Link>
+                <Link to="/signup" replace>
+                  Create an Account
+                </Link>
               </div>
             </Form>
           </div>

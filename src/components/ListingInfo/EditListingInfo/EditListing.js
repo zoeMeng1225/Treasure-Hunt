@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import {
   Input,
   Form,
@@ -11,10 +12,12 @@ import {
   message,
 } from 'antd';
 
-import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { UploadOutlined } from '@ant-design/icons';
-
+import { TOKEN_KEY } from 'constants/constants';
+import { useHistory, useParams } from 'react-router';
+import { checkValidToken } from 'utils';
+import { PICTURE_URL_PREFIX } from 'constants/constants';
 
 const { Option } = Select;
 
@@ -39,150 +42,161 @@ const normFile = (e) => {
 
 const { TextArea } = Input;
 
-const EditListing = ({ id }) => {
-  const [listing, setListing] = useState({});
-  const { category, title, price, brand, upload, condition, description } = listing;
-
+const EditListing = ({ formData }) => {
+  const history = useHistory();
+  const { listing_id } = useParams();
+  const [form] = Form.useForm();
 
   function onChange(value) {
     console.log('changed', value);
   }
 
+  // prefill the form with the data fetched from api
   useEffect(() => {
-    console.log("fetching data");
-    axios.get('/listing', {
-      params: {
-        listing_id: '1622754560957',
-      }
-    })
-      .then((res) => {
-        console.log("fetched data")
-        console.log(res);
-        setListing(res.data);
-      })
-      .catch((e) => console.log(e));
+    form.setFieldsValue(formData);
   }, []);
-
-
-
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
 
-    const { category, title, price, brand, upload, condition, description } = values;
+    const {
+      category,
+      title,
+      price,
+      brand,
+      upload,
+      item_condition,
+      description,
+    } = values;
 
     const formData = new FormData();
-    formData.append("seller_user_id", "lichengrao3");
-    formData.append("title", title);
-    formData.append("category", category);
-    formData.append("brand", brand);
-    formData.append("item_condition", condition);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("picture_1", upload[0].originFileObj);
-    formData.append("picture_2", upload[1].originFileObj);
+    formData.append('seller_user_id', checkValidToken());
+    formData.append('title', title);
+    formData.append('listing_id', listing_id);
+    formData.append('category', category);
+    formData.append('brand', brand);
+    formData.append('item_condition', item_condition);
+    formData.append('description', description);
+    formData.append('price', price);
+    for (var i = 0; i < upload.length; ++i) {
+      var key = 'picture_' + (i + 1);
+      formData.append(key, upload[i].originFileObj);
+    }
 
     console.log(formData.toString());
 
-    axios.post('/listing', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWNoZW5ncmFvMyIsImF1ZCI6InZpZGVvIGRlbW8iLCJlbWFpbCI6ImxpY2hlbmdyYW9AZ21haWwuY29tIiwiaWF0IjoxNjIyNzg2NzA4LCJleHAiOjE2MjI3OTAzMDh9.5_hX4GZ1Z2YBcgwWHRpWkMrNMliJRUoCRkL0OJ7TVcs`
-      }
-    })
-      .then(response => {
-        console.log(response)
+    axios
+      .put('/api/listing', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
         // case1: Pubish success
         if (response.status === 200) {
-          message.success('Publish succeed!');
+          message.success('Update successful!');
+          history.push(`/listing-detail/${listing_id}`);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         // case2: Publish failed
-        console.log('Publish failed: ', error.message);
-        message.success('Publish failed!');
-      })
+        console.log('Update failed: ', error.message);
+        message.error('Update failed!');
+      });
   };
 
-
   return (
-    <div>{listing.title}
+    <div>
       <Form
+        form={form}
         name="validate_other"
         {...formItemLayout}
         onFinish={onFinish}
-        initialValues={{ title: 'listing.title', price: '100', brand: 'btw' }}
         className="form-box"
       >
-
-        <Form.Item name="category" label="CATEGORY" rules={[
-          {
-            required: true,
-            message: 'Please select category!',
-          }
-        ]}>
+        <Form.Item
+          name="category"
+          label="CATEGORY"
+          rules={[
+            {
+              required: true,
+              message: 'Please select category!',
+            },
+          ]}
+        >
           <Radio.Group>
             <Row>
               <Col span={7}>
-                <Radio value={"Cars"} style={{ lineHeight: '32px' }}>
+                <Radio value={'Cars'} style={{ lineHeight: '32px' }}>
                   Cars
-            </Radio>
+                </Radio>
               </Col>
               <Col span={10}>
-                <Radio value={"Exercise Equipment"} style={{ lineHeight: '32px' }}>
-                  Exercise Equipment
-            </Radio>
+                <Radio
+                  value={'Exercise Equipments'}
+                  style={{ lineHeight: '32px' }}
+                >
+                  Exercise Equipments
+                </Radio>
               </Col>
               <Col span={7}>
-                <Radio value={"Furniture"} style={{ lineHeight: '32px' }}>
+                <Radio value={'Furniture'} style={{ lineHeight: '32px' }}>
                   Furniture
-            </Radio>
+                </Radio>
               </Col>
               <Col span={7}>
-                <Radio value={"Books"} style={{ lineHeight: '32px' }}>
+                <Radio value={'Books'} style={{ lineHeight: '32px' }}>
                   Books
-            </Radio>
+                </Radio>
               </Col>
               <Col span={10}>
-                <Radio value={"Musical Instruments"} style={{ lineHeight: '32px' }}>
-                  Musical Instruments
-            </Radio>
+                <Radio value={'Apparels'} style={{ lineHeight: '32px' }}>
+                  Apparels
+                </Radio>
               </Col>
               <Col span={7}>
-                <Radio value={"Electronics"} style={{ lineHeight: '32px' }}>
+                <Radio value={'Electronics'} style={{ lineHeight: '32px' }}>
                   Electronics
-            </Radio>
+                </Radio>
               </Col>
             </Row>
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item name="title" label="TITLE" rules={[
-          {
-            required: true,
-            message: 'Please input the title!',
-          },
-        ]}
+        <Form.Item
+          name="title"
+          label="TITLE"
+          rules={[
+            {
+              required: true,
+              message: 'Please input the title!',
+            },
+          ]}
         >
           <Input className="title-input" />
-
         </Form.Item>
 
-        <Form.Item name="price" label="PRICE" rules={[
-          {
-            required: true,
-            message: 'Please input the price!',
-          },
-        ]}>
+        <Form.Item
+          name="price"
+          label="PRICE"
+          rules={[
+            {
+              required: true,
+              message: 'Please input the price!',
+            },
+          ]}
+        >
           <InputNumber
-            formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            parser={value => value.replace(/\$\s?|(,*)/g, '')}
+            formatter={(value) =>
+              `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            }
+            parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
             onChange={onChange}
             className="input-num"
           />
-
         </Form.Item>
-
 
         <Form.Item name="brand" label="BRAND">
           <Input onChange={onChange} className="brand-input" />
@@ -200,13 +214,30 @@ const EditListing = ({ id }) => {
             },
           ]}
         >
-          <Upload name="photo" listType="picture" className="upload" beforeUpload={() => false}>
-            <Button icon={<UploadOutlined />} className="upload-btn">Click to upload</Button>
+          <Upload
+            name="photo"
+            listType="picture"
+            className="upload"
+            beforeUpload={() => false}
+          >
+            <Button icon={<UploadOutlined />} className="upload-btn">
+              Click to upload
+            </Button>
           </Upload>
         </Form.Item>
 
+        <div>
+          {Object.values(formData.picture_urls).map((picture_url) => (
+            <img
+              style={{ height: '100px', margin: '5px' }}
+              src={`${PICTURE_URL_PREFIX}${picture_url}`}
+              alt="listing_picture"
+            />
+          ))}
+        </div>
+
         <Form.Item
-          name="condition"
+          name="item_condition"
           label="CONDITION"
           rules={[
             {
@@ -216,29 +247,25 @@ const EditListing = ({ id }) => {
           ]}
         >
           <Select bordered={false} className="select-input">
-            <Option value="new">New</Option>
-            <Option value="used - like new">Used - Like new</Option>
-            <Option value="used - good">Used - Good</Option>
-            <Option value="used - fair">Used - Fair</Option>
+            <Option value="New">New</Option>
+            <Option value="Used - Like new">Used - Like new</Option>
+            <Option value="Used - Good">Used - Good</Option>
+            <Option value="Used - Fair">Used - Fair</Option>
           </Select>
         </Form.Item>
 
-
-
-        <Form.Item name="desctiption" label="DESCRIPTION">
+        <Form.Item name="description" label="DESCRIPTION">
           <TextArea rows={4} className="textarea-input" />
         </Form.Item>
-
 
         <Form.Item>
           <Button type="primary" htmlType="submit" className="confirm-btn">
             UPDATE
-        </Button>
+          </Button>
         </Form.Item>
       </Form>
     </div>
   );
-
 };
 
 export default EditListing;

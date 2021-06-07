@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Layout, List, Row, Spin, message } from 'antd';
+import { Affix, Card, Col, Layout, List, Row, Spin, message } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import { PICTURE_URL_PREFIX } from 'constants/constants';
 import './SavedListings.style.css';
 import { useLogin, useFetchSavedListings } from 'hooks';
 import { useHistory } from 'react-router';
+import TopNavBar from 'components/Header/TopNavBar';
+import AppFooter from 'components/Footer/AppFooter';
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
 
 const SavedListings = () => {
@@ -42,8 +44,10 @@ const SavedListings = () => {
 
   return (
     <div className="saved-listings-page">
-      <Layout>
-        <Header>Header</Header>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Affix offsetTop={0} className="app__affix-header">
+          <TopNavBar />
+        </Affix>
         <Content className="saved-listings-content">
           {isFetching ? (
             <Spin
@@ -68,7 +72,12 @@ const SavedListings = () => {
               }}
               dataSource={savedListings}
               renderItem={(item) => (
-                <List.Item key={item.listing_id}>
+                <List.Item
+                  key={item.listing_id}
+                  onClick={() =>
+                    history.push(`/listing-detail/${item.listing_id}`)
+                  }
+                >
                   <Card
                     hoverable
                     style={{ width: '100%' }}
@@ -94,6 +103,11 @@ const SavedListings = () => {
             />
           )}
         </Content>
+
+        <Footer>
+          {/* TODO make this at the bottom */}
+          <AppFooter />
+        </Footer>
       </Layout>
     </div>
   );

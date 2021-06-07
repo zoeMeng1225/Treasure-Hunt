@@ -1,44 +1,45 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { TOKEN_KEY } from '../../constants/constants';
 
 const useSignup = () => {
-  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [isSigningup, setIsSigningup] = useState(false);
 
   const signup = async ({
-    username,
-    password,
-    first_name,
-    last_name,
-    email,
     address_line_1,
     city,
+    email,
+    first_name,
+    last_name,
+    password,
     state,
+    username,
     zipcode,
   }) => {
-    setIsSigningUp(true);
+    setIsSigningup(true);
 
     try {
-      const response = await axios.post('/signup', {
+      const response = await axios.post('/api/signup', {
+        email,
         user_id: username,
-        password: password,
-        first_name: first_name,
-        last_name: last_name,
-        email: email,
+        password,
+        first_name,
+        last_name,
         address: `${address_line_1}, ${city}, ${state} ${zipcode}`,
       });
-      if (response.status === 200) {
-        localStorage.setItem(TOKEN_KEY, response.data.token);
-        return response.data.name;
+
+      if (response.status === 201) {
+        return 201;
       }
     } catch (err) {
       console.log(err.message);
+      return err.response.status;
     } finally {
-      setIsSigningUp(false);
+      setIsSigningup(false);
     }
   };
 
-  return { isSigningUp, signup };
+  return { isSigningup, signup };
+
 };
 
 export default useSignup;

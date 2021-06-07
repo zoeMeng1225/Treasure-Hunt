@@ -1,57 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { Row, Col, Button, message } from 'antd';
-import { StarOutlined, StarFilled } from '@ant-design/icons';
+import { StarOutlined, StarFilled, FastForwardFilled } from '@ant-design/icons';
 import { useSaveListing } from 'hooks';
 import { useFetchMyListings } from 'hooks';
+import { TOKEN_KEY } from 'constants/constants';
 import '../styles/Overview.css';
+import jwt_decode from 'jwt-decode';
+import { useHistory } from 'react-router';
 
 const Overview = (props) => {
   const pageName = 'Listing Detail Page: Overview: ';
-  const { listingInfo, userId } = props;
+  const { listingInfo } = props;
+
+  const history = useHistory();
+
   const listingId = listingInfo.listing_id;
   const sellerId = listingInfo.seller_id;
+
   const { isSaving, saveListing } = useSaveListing();
   const { isFetching, fetchMyListings } = useFetchMyListings();
 
   const [isSave, setIsSave] = useState(false);
   const [isLogIn, setIsLogIn] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
+  const [decodedToken, setDecodedToken] = useState(undefined);
 
-  const testMode = true;
-  const test = () => {
-    setIsSeller(false); //check if user is seller
-    setIsSave(false); //check if this is saved by buyer
-    setIsLogIn(true); //check if user is login
-  };
-
-  const url = useEffect(() => {
-    initState();
-    if (testMode) {
-      test();
-    }
+  useEffect(() => {
+    checkInSaveListing();
   }, []);
 
-  const initState = () => {
-    //TODO: init isSave isLogIn isSeller
-    if (sellerId === userId) {
-      setIsSeller(true);
-    } else {
-      //use is buyer
-      setIsSeller(false);
-      //check if buyer has saved listings
-      checkInSaveListing();
+  useEffect(() => {
+    checkIsSeller();
+  }, [isSeller]);
+
+  const checkIsSeller = () => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token !== null) {
+      console.log(token);
+      console.log('Trying to decode token');
+      const decoded = jwt_decode(token);
+      setDecodedToken(decoded);
+      const userId = decoded.sub;
+      if (userId === sellerId) {
+        setIsSeller(true);
+      }
     }
   };
 
   // fetch save listings and check if current listing/item is in fetched listings
   const checkInSaveListing = async () => {
+    if (decodedToken === undefined) {
+      return;
+    }
     const { listings, error } = await fetchMyListings();
     if (error !== undefined) {
-      message.error(`${pageName}Failed to get saved listings`);
+      console.log(`${pageName}Failed to get user saved listings`);
+      message.error(`${pageName}Failed to get user saved listings`);
     } else {
       for (const item in listings) {
-        if (listingId == item.listing_id) {
+        if (listingId === item.listing_id) {
           setIsSave(true);
         }
       }
@@ -59,19 +67,26 @@ const Overview = (props) => {
   };
 
   //TODO: link to login page
-  const onSaveClick = () => {
-    console.log('Save btn clicked');
-    if (!isLogIn) {
-      //TODO: link to login page
-      console.log(`${pageName}Buyer save without login. Go to login page`);
+  const onSaveClick = async () => {
+    // check if token is still valid
+    const tokenStillValid =
+      decodedToken !== undefined && decodedToken.exp * 1000 >= Date.now();
+    if (!tokenStillValid) {
+      localStorage.removeItem(TOKEN_KEY);
+      history.push('/login');
+    } else if (isSave) {
+      await save(false);
     } else {
-      save(!isSave);
-      console.log(`${pageName}negate save star`);
+      await save(true);
     }
   };
 
   const save = async (save) => {
-    const { listings, error } = await saveListing(save, userId, listingId);
+    const { listings, error } = await saveListing(
+      save,
+      decodedToken.sub,
+      listingId
+    );
     if (error !== undefined) {
       const action = save ? 'Save' : 'Unsave';
       message.error(`${pageName}${action} listing failed`);
@@ -99,8 +114,21 @@ const Overview = (props) => {
             </div>
           </Row>
         </Col>
-        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={8} className="btn">
-          {isSeller === false ? ( //isSeller for testing
+        <Col
+          xs={24}
+          sm={24}
+          md={24}
+          lg={24}
+          xl={24}
+          xxl={8}
+          className="btn"
+          align="right"
+        >
+          {isSeller ? (
+            <Button className="edit" onClick={onEditClick}>
+              Edit
+            </Button>
+          ) : (
             <Button
               size="large"
               className="star"
@@ -113,8 +141,6 @@ const Overview = (props) => {
               }
               onClick={onSaveClick}
             />
-          ) : (
-            <Button onClick={onEditClick}>Edit</Button>
           )}
         </Col>
       </Row>

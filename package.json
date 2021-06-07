@@ -10,6 +10,7 @@
     "antd": "^4.15.5",
     "axios": "^0.21.1",
     "google-maps-react": "^2.0.6",
+    "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -41,7 +42,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://0-1-dot-treasure-hunt-314706.uc.r.appspot.com",
+  "proxy": "https://treasure-hunt-314706.uc.r.appspot.com",
   "devDependencies": {
     "react-router-dom": "^5.2.0"
   }

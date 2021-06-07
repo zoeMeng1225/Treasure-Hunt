@@ -9,6 +9,7 @@ const useLogin = () => {
     setIsLoggingIn(true);
 
     try {
+      console.log('logging');
       const response = await axios.post('/api/login', {
         user_id: username,
         password: password,
