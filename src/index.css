@@ -13,7 +13,7 @@
 @import 'components/Home/CarouselSlides.css';
 @import 'components/Authentication/SplitLayout/SplitLayout.css';
 @import 'components/Authentication/Login/Login.css';
-@import 'components/Authentication/Signup/SignUp.css';
+@import 'components/Authentication/SignUp/SignUp.css';
 
 body {
   margin: 0;
