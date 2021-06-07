@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Menu, Button } from 'antd';
+import { Menu, Button, message } from 'antd';
 import { checkValidToken } from 'utils';
 import useLogout from 'hooks/use-logout';
 
@@ -28,6 +28,7 @@ const RightMenu = () => {
   const handleSignout = () => {
     logout();
     setSignedIn(false);
+    message.success('Successfully signed out');
   };
 
   return (
@@ -38,14 +39,16 @@ const RightMenu = () => {
     >
       {signedIn ? (
         <Item key="/signout">
-          <Button
-            disabled={isLoggingOut}
-            type="primary"
-            style={navBarSignUpButtonStyle}
-            onClick={handleSignout}
-          >
-            Sign Out
-          </Button>
+          <NavLink to="/">
+            <Button
+              disabled={isLoggingOut}
+              type="primary"
+              style={navBarSignUpButtonStyle}
+              onClick={handleSignout}
+            >
+              Sign Out
+            </Button>
+          </NavLink>
         </Item>
       ) : (
         <>

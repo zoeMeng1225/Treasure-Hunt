@@ -10,7 +10,7 @@ const checkValidToken = () => {
     return null;
   }
 
-  // decode token
+  // decode token, return userId if token is valid
   const decoded = jwt_decode(token);
   if (decoded.exp * 1000 >= Date.now()) {
     return decoded.sub;
