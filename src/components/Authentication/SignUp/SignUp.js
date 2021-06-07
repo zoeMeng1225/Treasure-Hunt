@@ -16,8 +16,8 @@ const SignUp = () => {
     //     method:"POST",
     //     url: "/signup",
     //     data:{
-    //         email: userData["student-email"],
-    //         user_id: userData["student-email"],
+    //         email: userData["student_email"],
+    //         user_id: userData["student_email"],
     //         password: userData.password,
     //         //first_name: userData.first_name,
     //         //
@@ -136,7 +136,7 @@ const SignUp = () => {
                   <Form.Item
                     className="su_form-item"
                     label="First Name"
-                    name="first-name"
+                    name="first_name"
                     rules={[
                       { required: true, message: 'First Name is required' },
                     ]}
@@ -148,7 +148,7 @@ const SignUp = () => {
                   <Form.Item
                     className="su_form-item"
                     label="Last Name"
-                    name="last-name"
+                    name="last_name"
                     rules={[
                       { required: true, message: 'Last Name is required' },
                     ]}
@@ -161,7 +161,7 @@ const SignUp = () => {
               <Form.Item
                 className="su_form-item"
                 label="Address Line"
-                name="address-line-1"
+                name="address_line_1"
                 rules={[{ required: true, message: 'Address is required' }]}
               >
                 <Input placeholder="Address Line" />
