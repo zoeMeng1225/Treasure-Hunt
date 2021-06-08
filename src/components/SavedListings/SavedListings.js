@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Affix, Card, Col, Layout, List, Row, Spin, message } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Affix, Card, Col, Layout, List, Row, message } from 'antd';
 
 import { PICTURE_URL_PREFIX } from 'constants/constants';
 import './SavedListings.style.css';
-import { useLogin, useFetchSavedListings } from 'hooks';
+import { useFetchSavedListings } from 'hooks';
 import { useHistory } from 'react-router';
 import TopNavBar from 'components/Header/TopNavBar';
 import AppFooter from 'components/Footer/AppFooter';
+import { Loading } from 'components';
+import { formatPrice } from 'utils';
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 const { Meta } = Card;
 
 const SavedListings = () => {
@@ -44,8 +45,6 @@ const SavedListings = () => {
     return `${PICTURE_URL_PREFIX}${Object.values(picture_urls)[0]}`;
   };
 
-  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-
   return (
     <div className="saved-listings-page">
       <Layout style={{ minHeight: '100vh' }}>
@@ -54,14 +53,13 @@ const SavedListings = () => {
         </Affix>
         <Content className="saved-listings-content">
           {isFetching ? (
-            <Spin
-              style={{
+            <Loading
+              customStyle={{
                 position: 'fixed',
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
               }}
-              indicator={antIcon}
             />
           ) : (
             <List
@@ -108,7 +106,7 @@ const SavedListings = () => {
                     >
                       <Col>
                         <div className="saved-listing-info-sub-text">
-                          {'$' + item.price}
+                          {formatPrice(item.price)}
                         </div>
                       </Col>
                       <Col>

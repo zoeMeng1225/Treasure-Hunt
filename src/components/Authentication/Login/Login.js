@@ -6,6 +6,8 @@ import Logo from 'assets/logos/th_logo.svg';
 import SplitLayout from '../SplitLayout/SplitLayout.js';
 import LoginPhoto from 'assets/images/login_img.jpg';
 import { useLogin } from 'hooks';
+import { Loading } from 'components/index.js';
+import './Login.css';
 
 const Login = () => {
   const { isLoggingIn, login } = useLogin();
@@ -70,12 +72,13 @@ const Login = () => {
 
               <Form.Item>
                 <Button
-                  disabled={isLoggingIn}
+                  className="login-button"
+                  loading={isLoggingIn}
                   id="login-button"
                   block
                   htmlType="submit"
                 >
-                  Login
+                  {!isLoggingIn && 'Login'}
                 </Button>
               </Form.Item>
 

@@ -201,12 +201,12 @@ const SignUp = () => {
 
               <Form.Item>
                 <Button
-                  disabled={isSigningup}
+                  loading={isSigningup}
                   id="signup-button"
                   block
                   htmlType="submit"
                 >
-                  {`${isSigningup ? 'Signing' : 'Sign'} up`}
+                  {!isSigningup && 'Sign Up'}
                 </Button>
               </Form.Item>
 

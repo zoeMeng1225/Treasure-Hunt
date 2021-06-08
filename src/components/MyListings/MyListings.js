@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import TopNavBar from 'components/Header/TopNavBar';
 import AppFooter from 'components/Footer/AppFooter';
 import { Loading } from 'components';
-import { checkValidToken } from 'utils';
+import { checkValidToken, formatPrice } from 'utils';
 
 const { Content, Footer } = Layout;
 
@@ -86,7 +86,7 @@ const MyListings = () => {
         <Content className="my-listings-content">
           {isFetching || isDeleting ? (
             <Loading
-              location={{
+              customStyle={{
                 position: 'fixed',
                 top: '50%',
                 left: '50%',
@@ -148,7 +148,7 @@ const MyListings = () => {
                   />
                   <ListingInfo
                     item="Price : "
-                    value={item.price}
+                    value={formatPrice(item.price)}
                     key="listing_price"
                   />
                   <br />
