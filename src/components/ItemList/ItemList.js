@@ -44,8 +44,6 @@ const ItemList = ({match}) => {
   }, [])
 
 
-  console.log(items.length === 0)
-
 
   const sortLowToHigh = () => {
     const sorted = [...items].sort((a, b) => {
@@ -63,11 +61,13 @@ const ItemList = ({match}) => {
     setItems(sorted);
   };
 
+
+
   const sortNewest = () => {
     const sorted = [...items].sort((a, b) => {
       return (
-        new Moment(a.create.substr(0, 10)).format("YYYYMMDD") -
-        new Moment(b.create.substr(0, 10)).format("YYYYMMDD")
+        new Moment(a?.date.substr(0, 10)).format("YYYYMMDD") -
+        new Moment(b?.date.substr(0, 10)).format("YYYYMMDD")
       );
     });
 
@@ -88,6 +88,7 @@ const ItemList = ({match}) => {
     </Menu>
   );
 
+ 
   return (
     <div className="items-page">
       <Layout>
@@ -126,11 +127,11 @@ const ItemList = ({match}) => {
                  
                 )}
               </Col>
-
+    
             <Col span={10} className="map-container">
               <GoogleMap
-                latitude={itemData?.latitude}
-                longitude={itemData?.longitude}
+                latitude={itemData?.geo_location?.lat}
+                longitude={itemData?.geo_location?.lon}
               />
             </Col>
           </Row>

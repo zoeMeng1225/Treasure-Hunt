@@ -16,12 +16,11 @@ const Item = (props) => {
       Products?.map((item, id) => {
         for(const [key, value] of Object.entries(item.picture_urls)){
              return (
-              <Col span = {8} key = {item?.id}> 
+              <Col span = {8} key = {id}> 
               <Card 
                 hoverable
                 onClick = {() => changeData(item)}
                 style = {{width : 250, marginBottom: 50}}
-                
                 cover = {<img alt="item" src= { PICTURE_URL_PREFIX + `${value}`} />}
                 >
                <Meta title={item?.title} description= {`$${item?.price}`}/>
