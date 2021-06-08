@@ -9,7 +9,6 @@ import { Layout,
          Space } from 'antd';
 import Item from './Item/Item';
 import GoogleMap  from './Map/GoogleMap';
-
 import Moment from 'moment';
 
 import { useSearch } from 'hooks';
@@ -29,26 +28,23 @@ const filterMenu = (
   </Menu>
 );
 
-const ItemList = () => {
+const ItemList = ({match}) => {
   const [items, setItems] = useState([]);
   const [itemData, setItemData] = useState({});
   const { search } = useSearch();
-  const [data, setData] = useState([]);
   const changData = useCallback((para) => setItemData(para), []);
 
+  useEffect(() => {
+    const fetchData = async (para) => {
+      search(para).then(res=> {
+        setItems(res.searchResults)
+      })
+    }
+    fetchData(match.params.parameter)
+  }, [])
 
-  // useEffect(() => {
-  //   const fetchData = async (type, para) => {
-  //     const {searchResults, error} = search(type,para);
-  //     console.log(searchResults)
-  //     // setData(searchResults)
-  //   }
 
-  //   fetchData('category', 'Books')
-
-  // }, [])
-  
-  console.log(search('Books'))
+  console.log(items.length === 0)
 
 
   const sortLowToHigh = () => {
@@ -99,28 +95,33 @@ const ItemList = () => {
         <Content className="item-list-row">
           <Row>
             <Col span={14} className="item-list">
-              <h1>Item near you</h1>
-              <div className="item-icons">
-                <Space direction="vertical" className="filter">
-                  <Space wrap>
-                    <Dropdown overlay={menu} placement="bottomCenter">
-                      <Button icon={<OrderedListOutlined />}>Sort by</Button>
-                    </Dropdown>
-                    <Dropdown overlay={filterMenu} placement="bottomCenter">
-                      <Button icon={<FilterOutlined />}>Filter</Button>
-                    </Dropdown>
-                  </Space>
-                </Space>
-              </div>
+              { items.length !== 0 ? 
+              (<div>
+                  <h1>Item near you</h1>
+                  <div className="item-icons">
+                    <Space direction="vertical" className="filter">
+                      <Space wrap>
+                        <Dropdown overlay={menu} placement="bottomCenter">
+                          <Button icon={<OrderedListOutlined />}>Sort by</Button>
+                        </Dropdown>
+                        <Dropdown overlay={filterMenu} placement="bottomCenter">
+                          <Button icon={<FilterOutlined />}>Filter</Button>
+                        </Dropdown>
+                      </Space>
+                    </Space>
+                  </div>
+        
+                  <div className="items">
+                    <Item Products={items} changeData={changData} itemData ={itemData}/>     
+                  </div>
+                </div>) : 
+                (<div style = {{fontSize:'1.2em', textAlign:'center', width:'100%', height:'100vh', marginTop: '10em'}}>No data be created, Please try again...</div>)}
+              </Col>
 
-              <div className="items">
-                <Item Products={items} changeData={changData} />
-              </div>
-            </Col>
             <Col span={10} className="map-container">
               <GoogleMap
-                latitude={itemData.latitude}
-                longitude={itemData.longitude}
+                latitude={itemData?.latitude}
+                longitude={itemData?.longitude}
               />
             </Col>
           </Row>

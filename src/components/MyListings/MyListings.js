@@ -15,7 +15,6 @@ const MyListings = () => {
   const [myListings, setMyListings] = useState([]);
   const { isFetching, fetchMyListings } = useFetchMyListings();
   
-  
 
   
   const fetch = async () => {
