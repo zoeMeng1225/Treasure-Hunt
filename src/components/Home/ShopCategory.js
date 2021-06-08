@@ -4,62 +4,63 @@ import { List, Card, Typography } from "antd";
 import { Link } from 'react-router-dom';
 import { useSearch } from 'hooks';
 
-import furniture1 from "../../assets/images/furniture1.jpg";
-import car1 from "../../assets/images/car1.jpg";
-import electronics1 from "../../assets/images/electronics1.jpg";
-import apparels from "../../assets/images/apparels.jpg";
-import book from "../../assets/images/book.jpg";
-import exercise_equipment from "../../assets/images/exercise_equipment.jpg";
+
+import { List, Card, Typography } from 'antd';
+
+
+import furniture1 from 'assets/images/furniture1.jpg';
+import car1 from 'assets/images/car1.jpg';
+import electronics1 from 'assets/images/electronics1.jpg';
+import apparels from 'assets/images/apparels.jpg';
+import book from 'assets/images/book.jpg';
+import exercise_equipments from 'assets/images/exercise_equipment.jpg';
 
 const { Meta } = Card;
 const { Title } = Typography;
 
 const data = [
-    {
-        title: 'Furniture',
-        alt: 'furniture',
-        src: furniture1,
-    },
-    {
-        title: 'Electronics',
-        alt: 'electronics',
-        src: electronics1,
-    },
-    {
-        title: 'Apparels',
-        alt: 'apparels',
-        src: apparels,
-    },
-    {
-        title: 'Cars',
-        alt: 'cars',
-        src: car1,
-    },
-    {
-        title: 'Books',
-        alt: 'books',
-        src: book,
-    },
-    {
-        title: 'Exercise Equipments',
-        alt: 'exercise-equipments',
-        src: exercise_equipment,
-    },
+  {
+    title: 'Furniture',
+    alt: 'furniture',
+    src: furniture1,
+  },
+  {
+    title: 'Electronics',
+    alt: 'electronics',
+    src: electronics1,
+  },
+  {
+    title: 'Apparels',
+    alt: 'apparels',
+    src: apparels,
+  },
+  {
+    title: 'Cars',
+    alt: 'cars',
+    src: car1,
+  },
+  {
+    title: 'Books',
+    alt: 'books',
+    src: book,
+  },
+  {
+    title: 'Exercise Equipments',
+    alt: 'exercise-equipments',
+    src: exercise_equipments,
+  },
 ];
 
-
 const shopCategoryHeadStyle = {
-    textAlign: 'left',
-    borderBottom:'0px'
+  textAlign: 'left',
+  borderBottom: '0px',
 };
+
 
 
 const ShopCategory = () => {
     const { search } = useSearch();
-   
-
-
-
+  
     return (
         <Card headStyle={shopCategoryHeadStyle} title={<Title level={2} style={{color:'#142264'}}>SHOP CATEGORY</Title>} bordered={false}>
             <List
@@ -92,7 +93,5 @@ const ShopCategory = () => {
 
         </Card>
     );
-}
-
 
 export default ShopCategory;

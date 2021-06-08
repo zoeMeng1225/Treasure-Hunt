@@ -36,7 +36,6 @@ const options = [
 const LeftMenu = () =>  {
    let history = useHistory();
   
-   
     const handleSearch = (para) => {
       history.push(`/items/${para}`)  
     }
@@ -78,7 +77,5 @@ const LeftMenu = () =>  {
           </Menu>
       );
     }
-
-
 
 export default LeftMenu;

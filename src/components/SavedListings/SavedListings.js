@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Layout, List, Row, Spin, message } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Affix, Card, Col, Layout, List, Row, message } from 'antd';
 
 import { PICTURE_URL_PREFIX } from '../../constants/constants';
 import './SavedListings.style.css';
-import { useLogin, useFetchSavedListings } from 'hooks';
+import { useFetchSavedListings } from 'hooks';
 import { useHistory } from 'react-router';
+import TopNavBar from 'components/Header/TopNavBar';
+import AppFooter from 'components/Footer/AppFooter';
+import { Loading } from 'components';
+import { formatPrice } from 'utils';
 
-const { Header, Content } = Layout;
+const { Content, Footer } = Layout;
 const { Meta } = Card;
 
 const SavedListings = () => {
@@ -20,8 +23,11 @@ const SavedListings = () => {
     const { listings, error } = await fetchSavedListings();
     if (error !== undefined) {
       if (error === 401) {
-        message.error('Please login');
-        history.push('/login');
+        message.info('Please login to see your saved listings');
+        history.replace({
+          pathname: '/login',
+          from: '/saved-listings',
+        });
       } else {
         message.error('Failed to get saved listings');
       }
@@ -32,28 +38,28 @@ const SavedListings = () => {
 
   useEffect(() => {
     fetch();
+    console.log(savedListings);
   }, []);
 
   const getPictureUrl = (picture_urls) => {
     return `${PICTURE_URL_PREFIX}${Object.values(picture_urls)[0]}`;
   };
 
-  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-
   return (
     <div className="saved-listings-page">
-      <Layout>
-        <Header>Header</Header>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Affix offsetTop={0} className="app__affix-header">
+          <TopNavBar />
+        </Affix>
         <Content className="saved-listings-content">
           {isFetching ? (
-            <Spin
-              style={{
+            <Loading
+              customStyle={{
                 position: 'fixed',
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
               }}
-              indicator={antIcon}
             />
           ) : (
             <List
@@ -68,25 +74,46 @@ const SavedListings = () => {
               }}
               dataSource={savedListings}
               renderItem={(item) => (
-                <List.Item key={item.listing_id}>
+                <List.Item
+                  key={item.listing_id}
+                  onClick={() =>
+                    history.push(`/listing-detail/${item.listing_id}`)
+                  }
+                >
                   <Card
                     hoverable
                     style={{ width: '100%' }}
                     cover={
-                      <img alt="pic" src={getPictureUrl(item.picture_urls)} />
+                      <img
+                        style={{ padding: '1px' }}
+                        alt="pic"
+                        src={getPictureUrl(item.picture_urls)}
+                      />
                     }
                   >
                     <Meta title={item.title} className="listing-info" />
                     <Row gutter={[16, 24]} className="listing-info">
-                      <Col>{item.description}</Col>
+                      <Col>
+                        <div className="saved-listing-info-text">
+                          {item.description}
+                        </div>
+                      </Col>
                     </Row>
                     <Row
                       gutter={[16, 24]}
                       justify="space-between"
                       className="listing-info"
                     >
-                      <Col>{'$' + item.price}</Col>
-                      <Col>{item.location}</Col>
+                      <Col>
+                        <div className="saved-listing-info-sub-text">
+                          {formatPrice(item.price)}
+                        </div>
+                      </Col>
+                      <Col>
+                        <div className="saved-listing-info-sub-text">
+                          {item.city_and_state}
+                        </div>
+                      </Col>
                     </Row>
                   </Card>
                 </List.Item>
@@ -94,6 +121,11 @@ const SavedListings = () => {
             />
           )}
         </Content>
+
+        <Footer>
+          {/* TODO make this at the bottom */}
+          <AppFooter />
+        </Footer>
       </Layout>
     </div>
   );

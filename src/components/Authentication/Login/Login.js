@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Form, Input, message, Row } from 'antd';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
@@ -6,7 +6,8 @@ import Logo from 'assets/logos/th_logo.svg';
 import SplitLayout from '../SplitLayout/SplitLayout.js';
 import LoginPhoto from 'assets/images/login_img.jpg';
 import { useLogin } from 'hooks';
-import axios from 'axios';
+import { Loading } from 'components/index.js';
+import './Login.css';
 
 const Login = () => {
   const { isLoggingIn, login } = useLogin();
@@ -23,7 +24,7 @@ const Login = () => {
       message.error('Login unsuccessful');
     } else {
       message.success(`Welcome back ${name}`);
-      history.goBack();
+      history.replace(location.from || '/');
     }
   };
 
@@ -31,9 +32,13 @@ const Login = () => {
     console.log('failed');
   };
 
+  const goToHome = () => {
+    history.push('/');
+  };
+
   return (
     <div id="login-view">
-      <img id="logo" src={Logo} />
+      <img id="logo" src={Logo} onClick={goToHome} />
       <SplitLayout src={LoginPhoto} content="left">
         <Row className="lv_form-container" justify="center" align="middle">
           <div className="lv_form">
@@ -67,18 +72,21 @@ const Login = () => {
 
               <Form.Item>
                 <Button
-                  disabled={isLoggingIn}
+                  className="login-button"
+                  loading={isLoggingIn}
                   id="login-button"
                   block
                   htmlType="submit"
                 >
-                  Login
+                  {!isLoggingIn && 'Login'}
                 </Button>
               </Form.Item>
 
               <div>
                 <span>Not registered yet? </span>
-                <Link to="/signup">Create an Account</Link>
+                <Link to={{ pathname: '/signup', from: location.from }} replace>
+                  Create an Account
+                </Link>
               </div>
             </Form>
           </div>

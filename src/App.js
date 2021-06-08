@@ -11,6 +11,8 @@ import SignUp from 'components/Authentication/SignUp/SignUp';
 import ListingDetail from './components/ListingDetail/ListingDetail';
 
 import './App.css';
+import CreateListingInfo from 'components/ListingInfo/CreateListingInfo';
+import EditListingInfo from 'components/ListingInfo/EditListingInfo';
 // this component should be a root router file
 function App() {
   return (
@@ -20,9 +22,11 @@ function App() {
         <Route path="/items/:parameter" component={ItemList} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route exact path="/my-listings" component={MyListings} />
+        <Route path="/sell" component={CreateListingInfo} />
+        <Route path="/edit/:listing_id" component={EditListingInfo} />
+        <Route exact path="/my-listings/" component={MyListings} />
         <Route exact path="/saved-listings" component={SavedListings} />
-        <Route path="/listing-detail" component={ListingDetail} />
+        <Route path="/listing-detail/:listing_id" component={ListingDetail} />
       </Switch>
     </BrowserRouter>
   );
