@@ -4,4 +4,3 @@ export { default as useSearch } from './use-search';
 export { default as useLogin } from './use-login';
 export { default as useFetchListingDetail } from './use-fetch-listing-detail';
 export { default as useSaveListing } from './use-save-listing';
-export { default as useCategory } from './use-category';

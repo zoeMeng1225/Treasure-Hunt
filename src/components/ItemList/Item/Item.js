@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Row, Col } from 'antd';
 
-import { PICTURE_URL_PREFIX } from '../../../constants/constants';
+import { PICTURE_URL_PREFIX } from 'constants/constants';
 
 const {Meta} = Card;
 
