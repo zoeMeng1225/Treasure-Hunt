@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Form, Input, message, Row } from 'antd';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import Logo from 'assets/logos/th_logo.svg';
 import SplitLayout from '../SplitLayout/SplitLayout.js';
@@ -10,6 +10,7 @@ import { useLogin } from 'hooks';
 const Login = () => {
   const { isLoggingIn, login } = useLogin();
   const history = useHistory();
+  const location = useLocation();
 
   const onFinish = async (userData) => {
     const name = await login({
@@ -21,7 +22,7 @@ const Login = () => {
       message.error('Login unsuccessful');
     } else {
       message.success(`Welcome back ${name}`);
-      history.goBack();
+      history.replace(location.from || '/');
     }
   };
 
@@ -80,7 +81,7 @@ const Login = () => {
 
               <div>
                 <span>Not registered yet? </span>
-                <Link to="/signup" replace>
+                <Link to={{ pathname: '/signup', from: location.from }} replace>
                   Create an Account
                 </Link>
               </div>

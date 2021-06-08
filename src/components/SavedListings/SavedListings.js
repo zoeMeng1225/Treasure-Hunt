@@ -23,7 +23,10 @@ const SavedListings = () => {
     if (error !== undefined) {
       if (error === 401) {
         message.error('Please login');
-        history.push('/login');
+        history.replace({
+          pathname: '/login',
+          from: '/saved-listings',
+        });
       } else {
         message.error('Failed to get saved listings');
       }
@@ -34,6 +37,7 @@ const SavedListings = () => {
 
   useEffect(() => {
     fetch();
+    console.log(savedListings);
   }, []);
 
   const getPictureUrl = (picture_urls) => {
@@ -82,20 +86,36 @@ const SavedListings = () => {
                     hoverable
                     style={{ width: '100%' }}
                     cover={
-                      <img alt="pic" src={getPictureUrl(item.picture_urls)} />
+                      <img
+                        style={{ padding: '1px' }}
+                        alt="pic"
+                        src={getPictureUrl(item.picture_urls)}
+                      />
                     }
                   >
                     <Meta title={item.title} className="listing-info" />
                     <Row gutter={[16, 24]} className="listing-info">
-                      <Col>{item.description}</Col>
+                      <Col>
+                        <div className="saved-listing-info-text">
+                          {item.description}
+                        </div>
+                      </Col>
                     </Row>
                     <Row
                       gutter={[16, 24]}
                       justify="space-between"
                       className="listing-info"
                     >
-                      <Col>{'$' + item.price}</Col>
-                      <Col>{item.location}</Col>
+                      <Col>
+                        <div className="saved-listing-info-sub-text">
+                          {'$' + item.price}
+                        </div>
+                      </Col>
+                      <Col>
+                        <div className="saved-listing-info-sub-text">
+                          {item.city_and_state}
+                        </div>
+                      </Col>
                     </Row>
                   </Card>
                 </List.Item>
