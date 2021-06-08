@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom';
 import { useSearch } from 'hooks';
 
 
-import { List, Card, Typography } from 'antd';
-
-
 import furniture1 from 'assets/images/furniture1.jpg';
 import car1 from 'assets/images/car1.jpg';
 import electronics1 from 'assets/images/electronics1.jpg';
@@ -93,5 +90,6 @@ const ShopCategory = () => {
 
         </Card>
     );
+  }
 
 export default ShopCategory;

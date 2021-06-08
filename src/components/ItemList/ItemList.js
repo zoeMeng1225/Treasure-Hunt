@@ -9,6 +9,7 @@ import { Layout,
 import Item from './Item/Item';
 import GoogleMap  from './Map/GoogleMap';
 import Moment from 'moment';
+import { Link } from 'react-router-dom';
 
 import { useSearch } from 'hooks';
 import "./ItemList.style.css";
@@ -114,7 +115,16 @@ const ItemList = ({match}) => {
                     <Item Products={items} changeData={changData} itemData ={itemData}/>     
                   </div>
                 </div>) : 
-                (<div style = {{fontSize:'1.2em', textAlign:'center', width:'100%', height:'100vh', marginTop: '10em'}}>No data be created, Please try again...</div>)}
+                (
+               
+                  <div style = {{fontSize:'1.2em', textAlign:'center', width:'100%', height:'100vh', marginTop: '10em'}}>
+                    No data be created, Please try again... 
+                    <Link to ="/">
+                      <div>Return to previous page</div>
+                    </Link>
+                  </div>
+                 
+                )}
               </Col>
 
             <Col span={10} className="map-container">
