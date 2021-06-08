@@ -24,7 +24,7 @@ const MyListings = () => {
     const { listings, error } = await fetchMyListings();
     if (error !== undefined) {
       if (error === 401) {
-        message.error('Please login');
+        message.info('Please login to see your listings');
         history.replace({
           pathname: '/login',
           from: '/my-listings',
@@ -85,7 +85,14 @@ const MyListings = () => {
         </Affix>
         <Content className="my-listings-content">
           {isFetching || isDeleting ? (
-            <Loading />
+            <Loading
+              location={{
+                position: 'fixed',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
+            />
           ) : (
             <List
               style={{

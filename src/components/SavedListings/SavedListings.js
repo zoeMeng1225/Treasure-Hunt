@@ -22,7 +22,7 @@ const SavedListings = () => {
     const { listings, error } = await fetchSavedListings();
     if (error !== undefined) {
       if (error === 401) {
-        message.error('Please login');
+        message.info('Please login to see your saved listings');
         history.replace({
           pathname: '/login',
           from: '/saved-listings',
